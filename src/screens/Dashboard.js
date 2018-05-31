@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
 import {
   Container,
   Content,
@@ -7,16 +7,22 @@ import {
   Header,
   Footer,
   FooterTab,
-  Icon
+  Icon,
+  Title
 } from "native-base";
 import { createStackNavigator } from "react-navigation";
 import Home from "./Home";
 
 export class Dashboard extends Component {
+  handleChat = () => {
+    this.props.navigation.navigate("Chat");
+  };
   render() {
     return (
       <Container>
-        <Header />
+        <Header style={styles.header}>
+          <Title>Quartz PE</Title>
+        </Header>
         <Content>
           <Text>Wellcome Bogeng!</Text>
         </Content>
@@ -24,23 +30,23 @@ export class Dashboard extends Component {
           <FooterTab>
             <Button vertical>
               <Icon name="home" />
-              <Text>Home</Text>
+              <Text style={styles.footerContent}>Home</Text>
             </Button>
-            <Button vertical>
-              <Icon name="chat" />
-              <Text>Chat</Text>
+            <Button onPress={this.handleChat} vertical>
+              <Icon name="chatbubbles" />
+              <Text style={styles.footerContent}>Chat</Text>
             </Button>
             <Button vertical>
               <Icon name="camera" />
-              <Text>Home</Text>
+              <Text style={styles.footerContent}>Post</Text>
             </Button>
             <Button vertical>
-              <Icon name="person" />
-              <Text>Home</Text>
+              <Icon name="notifications" />
+              <Text style={styles.footerContent}>Notifications</Text>
             </Button>
             <Button vertical>
               <Icon name="settings" />
-              <Text>Home</Text>
+              <Text style={styles.footerContent}>Settings</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -50,3 +56,16 @@ export class Dashboard extends Component {
 }
 
 export default Dashboard;
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  },
+  footerContent: {
+    color: "#ffffff"
+  },
+  header: {
+    alignItems: "center",
+    backgroundColor: "#34495e"
+  }
+});

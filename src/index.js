@@ -9,11 +9,13 @@ import { StyleSheet, View, Text } from "react-native";
 import Home from "./screens/Home";
 import { createStackNavigator } from "react-navigation";
 import Dashboard from "./screens/Dashboard";
+import Chat from "./screens/Chat";
 
 const Root = createStackNavigator(
   {
     Home: Home,
-    Dashboard: Dashboard
+    Dashboard: Dashboard,
+    Chat: Chat
   },
   {
     headerMode: "none"
