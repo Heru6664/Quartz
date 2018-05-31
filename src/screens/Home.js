@@ -22,8 +22,7 @@ export default class Home extends Component {
   _handleLogin = () => {
     if (this.state.username === "heru" && this.state.password === "heruheru") {
       this.props.navigation.navigate("Dashboard");
-    }
-    if (this.state.username === "" && this.state.password === "") {
+    } else if (this.state.username === "" && this.state.password === "") {
       Alert.alert("Please enter username and password");
     } else {
       Alert.alert("Wrong username or password!");
