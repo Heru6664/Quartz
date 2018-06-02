@@ -9,10 +9,17 @@ import {
   Button,
   Icon,
   Body,
-  Right
+  Right,
+  Fab
 } from "native-base";
 
 export class Chat extends Component {
+  constructor() {
+    super();
+    state = () => {
+      active: "true";
+    };
+  }
   render() {
     return (
       <Container>
@@ -31,7 +38,27 @@ export class Chat extends Component {
             </Button>
           </Right>
         </Header>
-        <Content />
+        <Content>
+          <Fab
+            active={() => this.state.active}
+            direction="up"
+            containerStyle={{}}
+            style={{ backgroundColor: "#5067ff" }}
+            position="bottomRight"
+            onPress={() => this.setState({ active: !this.state.active })}
+          >
+            <Icon name="ios-home" />
+            <Button style={{ backgroundColor: "#3b5998" }}>
+              <Icon name="message" />
+            </Button>
+            <Button style={{ backgroundColor: "#3b5998" }}>
+              <Icon name="message" />
+            </Button>
+            <Button style={{ backgroundColor: "#3b5998" }}>
+              <Icon name="message" />
+            </Button>
+          </Fab>
+        </Content>
       </Container>
     );
   }
