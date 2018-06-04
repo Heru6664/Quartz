@@ -12,14 +12,19 @@ import {
   Right,
   Fab
 } from "native-base";
+import { connect } from "react-redux";
 
 export class Chat extends Component {
   constructor() {
     super();
-    state = () => {
+    this.state = () => {
       active: "true";
     };
   }
+  componentDidMount() {
+    console.log(this.props.todo);
+  }
+
   render() {
     return (
       <Container>
@@ -64,4 +69,6 @@ export class Chat extends Component {
   }
 }
 
-export default Chat;
+export default connect(state => {
+  return { todo: state.todo.todo };
+})(Chat);

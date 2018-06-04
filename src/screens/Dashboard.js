@@ -17,6 +17,10 @@ export class Dashboard extends Component {
   handleChat = () => {
     this.props.navigation.navigate("Chat");
   };
+
+  handlePost = () => {
+    this.props.navigation.navigate("Post");
+  };
   render() {
     return (
       <Container>
@@ -36,7 +40,7 @@ export class Dashboard extends Component {
               <Icon name="chatbubbles" />
               <Text style={styles.footerContent}>Chat</Text>
             </Button>
-            <Button vertical>
+            <Button onPress={this.handlePost} vertical>
               <Icon name="camera" />
               <Text style={styles.footerContent}>Post</Text>
             </Button>

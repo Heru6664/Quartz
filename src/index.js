@@ -10,15 +10,18 @@ import Home from "./screens/Home";
 import { createStackNavigator } from "react-navigation";
 import Dashboard from "./screens/Dashboard";
 import Chat from "./screens/Chat";
+import Post from "./screens/Post";
 
 const Root = createStackNavigator(
   {
     Home: Home,
     Dashboard: Dashboard,
-    Chat: Chat
+    Chat: Chat,
+    Post: Post
   },
   {
-    headerMode: "none"
+    headerMode: "none",
+    initialRouteName: "Dashboard"
   }
 );
 
