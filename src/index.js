@@ -11,17 +11,21 @@ import { createStackNavigator } from "react-navigation";
 import Dashboard from "./screens/Dashboard";
 import Chat from "./screens/Chat";
 import Post from "./screens/Post";
+import Contact from "./screens/Contact";
+import NContact from "./screens/NContact";
 
 const Root = createStackNavigator(
   {
     Home: Home,
     Dashboard: Dashboard,
     Chat: Chat,
-    Post: Post
+    Post: Post,
+    Contact: Contact,
+    NContact: NContact
   },
   {
     headerMode: "none",
-    initialRouteName: "Dashboard"
+    initialRouteName: "Contact"
   }
 );
 

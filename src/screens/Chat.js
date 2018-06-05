@@ -17,13 +17,16 @@ import { connect } from "react-redux";
 export class Chat extends Component {
   constructor() {
     super();
-    this.state = () => {
-      active: "true";
+    this.state = {
+      active: "false"
     };
   }
   componentDidMount() {
     console.log(this.props.todo);
   }
+  handlePressContact = () => {
+    this.props.navigation.navigate("Contact");
+  };
 
   render() {
     return (
@@ -43,27 +46,26 @@ export class Chat extends Component {
             </Button>
           </Right>
         </Header>
-        <Content>
-          <Fab
-            active={() => this.state.active}
-            direction="up"
-            containerStyle={{}}
-            style={{ backgroundColor: "#5067ff" }}
-            position="bottomRight"
-            onPress={() => this.setState({ active: !this.state.active })}
+        <Content />
+        <Fab
+          active={!this.state.active}
+          direction="up"
+          containerStyle={{}}
+          style={{ backgroundColor: "#5067FF" }}
+          position="bottomRight"
+          onPress={() => this.setState({ active: !this.state.active })}
+        >
+          <Icon name="add" />
+          <Button style={{ backgroundColor: "#34A34F" }}>
+            <Icon name="chatbubbles" />
+          </Button>
+          <Button
+            onPress={this.handlePressContact}
+            style={{ backgroundColor: "#3B5998" }}
           >
-            <Icon name="ios-home" />
-            <Button style={{ backgroundColor: "#3b5998" }}>
-              <Icon name="message" />
-            </Button>
-            <Button style={{ backgroundColor: "#3b5998" }}>
-              <Icon name="message" />
-            </Button>
-            <Button style={{ backgroundColor: "#3b5998" }}>
-              <Icon name="message" />
-            </Button>
-          </Fab>
-        </Content>
+            <Icon name="contacts" />
+          </Button>
+        </Fab>
       </Container>
     );
   }

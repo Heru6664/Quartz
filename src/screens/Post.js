@@ -15,6 +15,10 @@ import { connect } from "react-redux";
 import TodoInput from "../components/todoInput";
 import { delTodo } from "../action/actionTodo";
 
+const mapStateToProps = state => ({
+  todo: state.todo.todo
+});
+
 class Post extends Component {
   constructor() {
     super();
@@ -81,8 +85,4 @@ class Post extends Component {
   }
 }
 
-export default connect(state => {
-  return {
-    todo: state.todo.todo
-  };
-})(Post);
+export default connect(mapStateToProps)(Post);
