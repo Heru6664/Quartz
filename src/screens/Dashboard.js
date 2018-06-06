@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Alert } from "react-native";
+import { Text, View, StyleSheet, Alert, FlatList } from "react-native";
 import {
   Container,
   Content,
@@ -8,12 +8,22 @@ import {
   Footer,
   FooterTab,
   Icon,
-  Title
+  Title,
+  Left,
+  Body,
+  Right
 } from "native-base";
 import { createStackNavigator } from "react-navigation";
 import Home from "./Home";
+import DashboardContent from "../components/DashboardContent";
+import { connect } from "react-redux";
+import { fetchContent } from "../action/contentDashboard";
 
 export class Dashboard extends Component {
+  componentDidMount() {
+    this.props.dispatch(fetchContent());
+  }
+
   handleChat = () => {
     this.props.navigation.navigate("Chat");
   };
@@ -21,14 +31,45 @@ export class Dashboard extends Component {
   handlePost = () => {
     this.props.navigation.navigate("Post");
   };
+
+  renderProduct = item => (
+    <TouchableOpacity style={styles.th}>
+      <Card title={item.name} image={{ uri: item.img }}>
+        <CardItem style={styles.itemContainer}>
+          <Text>{item.price}</Text>
+        </CardItem>
+        <CardItem />
+      </Card>
+    </TouchableOpacity>
+  );
   render() {
     return (
       <Container>
         <Header style={styles.header}>
-          <Title>Quartz PE</Title>
+          <Left>
+            <Button
+              onPress={() => this.props.navigation.navigate("DrawerOpen")}
+              transparent
+            >
+              <Icon style={styles.iconHead} name="menu" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Quartz PE</Title>
+          </Body>
+          <Right>
+            <Button transparent>
+              <Icon style={styles.iconHead} name="notifications" />
+            </Button>
+          </Right>
         </Header>
         <Content>
           <Text>Wellcome Bogeng!</Text>
+          <FlatList
+            data={this.props.products}
+            renderItem={({ item }) => <DashboardContent item={item} />}
+            numColumns={2}
+          />
         </Content>
         <Footer>
           <FooterTab>
@@ -45,12 +86,12 @@ export class Dashboard extends Component {
               <Text style={styles.footerContent}>Post</Text>
             </Button>
             <Button vertical>
-              <Icon name="notifications" />
-              <Text style={styles.footerContent}>Notifications</Text>
+              <Icon name="cart" />
+              <Text style={styles.footerContent}>Cart</Text>
             </Button>
             <Button vertical>
-              <Icon name="settings" />
-              <Text style={styles.footerContent}>Settings</Text>
+              <Icon name="heart" />
+              <Text style={styles.footerContent}>Favorite</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -59,17 +100,24 @@ export class Dashboard extends Component {
   }
 }
 
-export default Dashboard;
-
 const styles = StyleSheet.create({
   container: {
     flex: 1
   },
-  footerContent: {
-    color: "#ffffff"
-  },
+  footerContent: {},
   header: {
     alignItems: "center",
     backgroundColor: "#34495e"
+  },
+  iconHead: {
+    color: "#ffffff"
   }
 });
+
+const mapStateToProps = state => ({
+  products: state.content.content,
+  loading: state.content.loading,
+  error: state.content.error
+});
+
+export default connect(mapStateToProps)(Dashboard);

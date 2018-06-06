@@ -7,12 +7,18 @@
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import Home from "./screens/Home";
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator, DrawerNavigator } from "react-navigation";
 import Dashboard from "./screens/Dashboard";
 import Chat from "./screens/Chat";
 import Post from "./screens/Post";
 import Contact from "./screens/Contact";
 import NContact from "./screens/NContact";
+import Profile from "./screens/Profile";
+import About from "./screens/About";
+import Setting from "./screens/Setting";
+import ContactUs from "./screens/ContactUs";
+import InfoApp from "./screens/InfoApp";
+import SideBar from "./components/SideBar";
 
 const Root = createStackNavigator(
   {
@@ -25,7 +31,20 @@ const Root = createStackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "Contact"
+    initialRouteName: "Dashboard"
+  }
+);
+
+const HomeScreenRouter = DrawerNavigator(
+  {
+    Profile: { screen: Profile }
+    // About: { screen: About },
+    // Setting: { screen: Setting },
+    // Contact: { screen: ContactUs },
+    // Info: { screen: InfoApp }
+  },
+  {
+    contentComponent: props => <SideBar {...props} />
   }
 );
 

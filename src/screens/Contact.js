@@ -60,7 +60,6 @@ class Contact extends Component {
         </ListItem>
       </View>
     );
-    console.log(contact);
   };
 
   render() {
@@ -81,8 +80,8 @@ class Contact extends Component {
               button={
                 <Icon
                   onPress={this.showMenu}
-                  name="contact"
-                  style={{ color: "#ffffff" }}
+                  name="more"
+                  // style={{ color: "#ffffff" }}
                 />
               }
               style={{ width: 200 }}
