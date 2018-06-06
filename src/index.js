@@ -20,31 +20,26 @@ import ContactUs from "./screens/ContactUs";
 import InfoApp from "./screens/InfoApp";
 import SideBar from "./components/SideBar";
 
-const Root = createStackNavigator(
+const Root = DrawerNavigator(
   {
     Home: Home,
     Dashboard: Dashboard,
     Chat: Chat,
     Post: Post,
     Contact: Contact,
-    NContact: NContact
+    NContact: NContact,
+    Profile: Profile,
+    Setting: Setting
   },
   {
-    headerMode: "none",
-    initialRouteName: "Dashboard"
-  }
-);
+    initialRouteName: "Dashboard",
+    contentComponent: props => {
+      const navigate = route => {
+        return props.navigation.navigate(route);
+      };
 
-const HomeScreenRouter = DrawerNavigator(
-  {
-    Profile: { screen: Profile }
-    // About: { screen: About },
-    // Setting: { screen: Setting },
-    // Contact: { screen: ContactUs },
-    // Info: { screen: InfoApp }
-  },
-  {
-    contentComponent: props => <SideBar {...props} />
+      return <SideBar handlePress={navigate} {...props} />;
+    }
   }
 );
 

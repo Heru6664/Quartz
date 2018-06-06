@@ -6,9 +6,8 @@ import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
 export default ({ item }) => (
   <TouchableOpacity style={styles.th}>
-    <Card image={{ uri: item.img }}>
+    <Card title={item.name} image={{ uri: item.img }}>
       <CardItem style={styles.itemContainer}>
-        <Text>{item.name}</Text>
         <Text>{item.price}</Text>
       </CardItem>
       <CardItem />

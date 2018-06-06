@@ -60,7 +60,10 @@ class Post extends Component {
       <Container>
         <Header>
           <Left>
-            <Button onPress={() => this.props.navigation.goBack()} transparent>
+            <Button
+              onPress={() => this.props.navigation.navigate("Dashboard")}
+              transparent
+            >
               <Icon name="arrow-back" />
             </Button>
           </Left>

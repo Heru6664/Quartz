@@ -13,21 +13,27 @@ import {
   Body,
   Right
 } from "native-base";
-import { createStackNavigator } from "react-navigation";
+import { createStackNavigator, DrawerNavigator } from "react-navigation";
 import Home from "./Home";
 import DashboardContent from "../components/DashboardContent";
 import { connect } from "react-redux";
 import { fetchContent } from "../action/contentDashboard";
+import SideBar from "../components/SideBar";
 
 export class Dashboard extends Component {
+  static navigationOptions = {
+    drawerLabel: "Dashboard",
+    drawerIcon: ({ tintColor }) => {
+      <Icon name="contact" />;
+    }
+  };
+
   componentDidMount() {
     this.props.dispatch(fetchContent());
   }
-
   handleChat = () => {
     this.props.navigation.navigate("Chat");
   };
-
   handlePost = () => {
     this.props.navigation.navigate("Post");
   };
@@ -64,7 +70,6 @@ export class Dashboard extends Component {
           </Right>
         </Header>
         <Content>
-          <Text>Wellcome Bogeng!</Text>
           <FlatList
             data={this.props.products}
             renderItem={({ item }) => <DashboardContent item={item} />}
@@ -79,7 +84,7 @@ export class Dashboard extends Component {
             </Button>
             <Button onPress={this.handleChat} vertical>
               <Icon name="chatbubbles" />
-              <Text style={styles.footerContent}>Chat</Text>
+              <Text style={styles.footerContent}>Inbox</Text>
             </Button>
             <Button onPress={this.handlePost} vertical>
               <Icon name="camera" />
@@ -106,11 +111,10 @@ const styles = StyleSheet.create({
   },
   footerContent: {},
   header: {
-    alignItems: "center",
-    backgroundColor: "#34495e"
+    alignItems: "center"
   },
   iconHead: {
-    color: "#ffffff"
+    color: "#000"
   }
 });
 
