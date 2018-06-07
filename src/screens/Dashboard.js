@@ -37,6 +37,9 @@ export class Dashboard extends Component {
   handlePost = () => {
     this.props.navigation.navigate("Post");
   };
+  handleCart = () => {
+    this.props.navigation.navigate("Cart");
+  };
 
   renderProduct = item => (
     <TouchableOpacity style={styles.th}>
@@ -91,7 +94,7 @@ export class Dashboard extends Component {
               <Icon name="camera" />
               <Text style={styles.footerContent}>Post</Text>
             </Button>
-            <Button vertical>
+            <Button onPress={this.handleCart} vertical>
               <Icon name="cart" />
               <Text style={styles.footerContent}>Cart</Text>
             </Button>

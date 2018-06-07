@@ -25,7 +25,18 @@ export default class Profile extends Component {
     return (
       <Container style={{ backgroundColor: "rgba(0,0,0, 0.2)" }}>
         <Header>
-          <Title>Profile</Title>
+          <Left>
+            <Button
+              onPress={() => this.props.navigation.navigate("Dashboard")}
+              transparent
+            >
+              <Icon name="arrow-back" />
+            </Button>
+          </Left>
+          <Body>
+            <Title>Profile</Title>
+          </Body>
+          <Right />
         </Header>
         <Content>
           <HeaderProfile />
