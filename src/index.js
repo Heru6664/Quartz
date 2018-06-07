@@ -32,7 +32,7 @@ const Root = DrawerNavigator(
     Setting: Setting
   },
   {
-    initialRouteName: "Dashboard",
+    initialRouteName: "Profile",
     contentComponent: props => {
       const navigate = route => {
         return props.navigation.navigate(route);

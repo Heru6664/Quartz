@@ -70,6 +70,7 @@ export class Dashboard extends Component {
           </Right>
         </Header>
         <Content>
+          <Text style={{ color: "red", fontSize: 30 }}>Flash Sale!</Text>
           <FlatList
             data={this.props.products}
             renderItem={({ item }) => <DashboardContent item={item} />}
