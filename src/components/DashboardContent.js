@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import { Container, Content, Image, CardItem } from "native-base";
 import { Card, Button, Icon, ListItem, Text } from "react-native-elements";
-import GridView from "react-native-super-grid";
 import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
 
-export default ({ item }) => (
-  <TouchableOpacity style={styles.th}>
+export default ({ item, pressProduct }) => (
+  <TouchableOpacity onPress={() => pressProduct(item)} style={styles.th}>
     <Card title={item.name} image={{ uri: item.img }}>
       <CardItem style={styles.itemContainer}>
         <Text>{item.price}</Text>

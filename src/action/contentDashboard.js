@@ -3,6 +3,7 @@ import axios from "axios";
 export const FETCH_CONTENT_BEGIN = "FETCH_CONTENT_BEGIN";
 export const FETCH_CONTENT_SUCCESS = "FETCH_CONTENT_SUCCESS";
 export const FETCH_CONTENT_FAILED = "FETCH_CONTENT_FAILED";
+export const GET_DETAIL = "GET_DETAIL";
 
 export const fecthContentBegin = () => ({
   type: FETCH_CONTENT_BEGIN
@@ -30,3 +31,10 @@ export const fetchContent = () => {
       .catch(e => console.log(e));
   };
 };
+
+export const getDetail = details => ({
+  type: GET_DETAIL,
+  payload: {
+    details
+  }
+});

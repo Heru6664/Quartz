@@ -18,7 +18,7 @@ import { createStackNavigator, DrawerNavigator } from "react-navigation";
 import Home from "./Home";
 import DashboardContent from "../components/DashboardContent";
 import { connect } from "react-redux";
-import { fetchContent } from "../action/contentDashboard";
+import { fetchContent, getDetail } from "../action/contentDashboard";
 import SideBar from "../components/SideBar";
 
 export class Dashboard extends Component {
@@ -57,6 +57,11 @@ export class Dashboard extends Component {
   handleProfile = () => {
     this.props.navigation.navigate("Profile");
   };
+  pressProduct = item => {
+    this.props.dispatch(getDetail(item));
+    this.props.navigation.navigate("ProductDesc");
+  };
+
   renderProduct = item => (
     <TouchableOpacity style={styles.th}>
       <Card title={item.name} image={{ uri: item.img }}>
@@ -110,7 +115,9 @@ export class Dashboard extends Component {
           <Text style={{ color: "red", fontSize: 30 }}>Flash Sale!</Text>
           <FlatList
             data={this.props.products}
-            renderItem={({ item }) => <DashboardContent item={item} />}
+            renderItem={({ item }) => (
+              <DashboardContent pressProduct={this.pressProduct} item={item} />
+            )}
             numColumns={2}
           />
         </Content>

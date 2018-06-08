@@ -1,13 +1,16 @@
 import {
   FETCH_CONTENT_BEGIN,
   FETCH_CONTENT_FAILED,
-  FETCH_CONTENT_SUCCESS
+  FETCH_CONTENT_SUCCESS,
+  GET_DETAIL
 } from "../action/contentDashboard";
 
 const initialState = {
   content: [],
   loading: false,
-  error: null
+  error: null,
+  detailProduct: {
+  }
 };
 
 export default (state = initialState, action) => {
@@ -31,6 +34,11 @@ export default (state = initialState, action) => {
         error: action.payload.error,
         content: []
       };
+      case GET_DETAIL:
+      return{
+        ...state,
+        detailProduct: action.payload.details
+      }
     default:
       return state;
   }

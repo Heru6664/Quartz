@@ -20,6 +20,7 @@ import NContact from "./screens/NContact";
 import Post from "./screens/Post";
 import Profile from "./screens/Profile";
 import Setting from "./screens/Setting";
+import ProductDesc from "./screens/ProductDesc";
 
 import SideBar from "./components/SideBar";
 
@@ -34,10 +35,11 @@ const Root = DrawerNavigator(
     NContact: NContact,
     Profile: Profile,
     Setting: Setting,
-    About: About
+    About: About,
+    ProductDesc: ProductDesc
   },
   {
-    initialRouteName: "Post",
+    initialRouteName: "ProductDesc",
     contentComponent: props => {
       const navigate = route => {
         return props.navigation.navigate(route);
