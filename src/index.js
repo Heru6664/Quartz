@@ -8,18 +8,18 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
 import { createStackNavigator, DrawerNavigator } from "react-navigation";
 
-import Home from "./screens/Home";
-import Dashboard from "./screens/Dashboard";
-import Chat from "./screens/Chat";
-import Post from "./screens/Post";
-import Contact from "./screens/Contact";
-import NContact from "./screens/NContact";
-import Profile from "./screens/Profile";
 import About from "./screens/About";
-import Setting from "./screens/Setting";
-import ContactUs from "./screens/ContactUs";
-import InfoApp from "./screens/InfoApp";
 import Cart from "./screens/Cart";
+import Chat from "./screens/Chat";
+import Contact from "./screens/Contact";
+import ContactUs from "./screens/ContactUs";
+import Dashboard from "./screens/Dashboard";
+import Home from "./screens/Home";
+import InfoApp from "./screens/InfoApp";
+import NContact from "./screens/NContact";
+import Post from "./screens/Post";
+import Profile from "./screens/Profile";
+import Setting from "./screens/Setting";
 
 import SideBar from "./components/SideBar";
 
@@ -33,10 +33,11 @@ const Root = DrawerNavigator(
     Contact: Contact,
     NContact: NContact,
     Profile: Profile,
-    Setting: Setting
+    Setting: Setting,
+    About: About
   },
   {
-    initialRouteName: "Cart",
+    initialRouteName: "Post",
     contentComponent: props => {
       const navigate = route => {
         return props.navigation.navigate(route);

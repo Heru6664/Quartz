@@ -1,14 +1,14 @@
 import React, { Component } from "react";
-import { Container, Content, List, ListItem, Text } from "native-base";
-import { Image } from "react-native";
+import { Container, Content, List, ListItem, Text, Icon } from "native-base";
+import { Image, StyleSheet } from "react-native";
 import { DrawerNavigator } from "react-navigation";
 
 const routes = [
-  { name: "Dashboard", route: "Dashboard" },
-  { name: "Profile", route: "Profile" },
-  { name: "About", route: "About" },
-  { name: "Contact Us", route: "ContactUs" },
-  { name: "Setting", route: "Setting" }
+  { icon: "home", name: "Dashboard", route: "Dashboard" },
+  { icon: "account-circle", name: "Profile", route: "Profile" },
+  { icon: "help", name: "About", route: "About" },
+  { icon: "comment", name: "Contact Us", route: "ContactUs" },
+  { icon: "settings", name: "Setting", route: "Setting" }
 ];
 
 export default ({ handlePress }) => (
@@ -29,7 +29,12 @@ export default ({ handlePress }) => (
         renderRow={data => {
           return (
             <ListItem button onPress={() => handlePress(data.route)}>
-              <Text>{data.name}</Text>
+              <Icon
+                style={styles.content}
+                type="MaterialIcons"
+                name={data.icon}
+              />
+              <Text style={styles.content}>{data.name}</Text>
             </ListItem>
           );
         }}
@@ -37,3 +42,9 @@ export default ({ handlePress }) => (
     </Content>
   </Container>
 );
+
+const styles = StyleSheet.create({
+  content: {
+    color: "rgba(0,0,0, 0.5)"
+  }
+});

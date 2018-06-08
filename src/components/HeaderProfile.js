@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   avatarWrap: {
     width: 150,
     height: 150,
-    borderRadius: 33,
+    borderRadius: 100,
     borderColor: "rgba(0,0,0, 0.4)",
     borderWidth: 16
   },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: null,
     height: null,
-    borderRadius: 20,
+    borderRadius: 60,
     borderColor: "#fff",
     borderWidth: 2
   },

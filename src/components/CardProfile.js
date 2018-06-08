@@ -1,6 +1,6 @@
-import { View, Icon, Card, CardItem, Text } from "native-base";
+import { View, Icon, Card, CardItem, Text, Button } from "native-base";
 import React, { Component } from "react";
-import { TouchableOpacity } from "react-native";
+import { TouchableOpacity, StyleSheet } from "react-native";
 
 export default () => (
   <View>
@@ -130,5 +130,20 @@ export default () => (
         </TouchableOpacity>
       </CardItem>
     </Card>
+    <Card>
+      <CardItem>
+        <Button style={styles.button} bordered dark>
+          <Text>LOG OUT</Text>
+        </Button>
+      </CardItem>
+    </Card>
   </View>
 );
+
+const styles = StyleSheet.create({
+  button: {
+    width: "100%",
+    alignItems: "center",
+    justifyContent: "center"
+  }
+});

@@ -13,6 +13,7 @@ import {
   Body,
   Right
 } from "native-base";
+import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { createStackNavigator, DrawerNavigator } from "react-navigation";
 import Home from "./Home";
 import DashboardContent from "../components/DashboardContent";
@@ -27,6 +28,19 @@ export class Dashboard extends Component {
       <Icon name="contact" />;
     }
   };
+  _menu = null;
+
+  setMenuRef = ref => {
+    this._menu = ref;
+  };
+
+  hideMenu = () => {
+    this._menu.hide();
+  };
+
+  showMenu = () => {
+    this._menu.show();
+  };
 
   componentDidMount() {
     this.props.dispatch(fetchContent());
@@ -40,7 +54,9 @@ export class Dashboard extends Component {
   handleCart = () => {
     this.props.navigation.navigate("Cart");
   };
-
+  handleProfile = () => {
+    this.props.navigation.navigate("Profile");
+  };
   renderProduct = item => (
     <TouchableOpacity style={styles.th}>
       <Card title={item.name} image={{ uri: item.img }}>
@@ -67,9 +83,27 @@ export class Dashboard extends Component {
             <Title>Quartz PE</Title>
           </Body>
           <Right>
-            <Button transparent>
-              <Icon style={styles.iconHead} name="notifications" />
-            </Button>
+            <Menu
+              ref={this.setMenuRef}
+              button={
+                <Icon
+                  onPress={this.showMenu}
+                  name="notifications"
+                  // style={{ color: "#ffffff" }}
+                />
+              }
+              style={{ width: 200 }}
+            >
+              <MenuItem style={styles.headMI} onPress={this.handleNContact}>
+                Notifications
+              </MenuItem>
+              <MenuItem onPress={this.hideMenu}> </MenuItem>
+              <MenuItem onPress={this.hideMenu} disabled>
+                Empty
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem onPress={this.hideMenu}>Show More </MenuItem>
+            </Menu>
           </Right>
         </Header>
         <Content>
@@ -98,9 +132,9 @@ export class Dashboard extends Component {
               <Icon name="cart" />
               <Text style={styles.footerContent}>Cart</Text>
             </Button>
-            <Button vertical>
-              <Icon name="heart" />
-              <Text style={styles.footerContent}>Favorite</Text>
+            <Button onPress={this.handleProfile} vertical>
+              <Icon type="MaterialIcons" name="account-circle" />
+              <Text style={styles.footerContent}>Account</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -119,6 +153,9 @@ const styles = StyleSheet.create({
   },
   iconHead: {
     color: "#000"
+  },
+  headMI: {
+    backgroundColor: "#e67e22"
   }
 });
 
