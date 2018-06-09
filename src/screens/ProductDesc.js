@@ -93,6 +93,72 @@ class Profile extends Component {
             </CardItem>
           </Card>
           {/*  */}
+          <Card>
+            <CardItem header bordered>
+              <Text>Seller</Text>
+            </CardItem>
+            <CardItem bordered>
+              <Text>Frankenstein</Text>
+            </CardItem>
+            <CardItem>
+              <Left>
+                <Text>Rating</Text>
+              </Left>
+              <Body>
+                <Text>Rating</Text>
+              </Body>
+              <Right>
+                <Text>Rating</Text>
+              </Right>
+            </CardItem>
+            <CardItem bordered>
+              <Text>view seller</Text>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem header bordered>
+              <Left>
+                <Text>Customer Review</Text>
+              </Left>
+              <Body />
+              <Right>
+                <Button transparent>
+                  <Icon type="Entypo" name="chevron-thin-right" />
+                </Button>
+              </Right>
+            </CardItem>
+            <CardItem header>
+              <Text>Costumer </Text>
+            </CardItem>
+            <CardItem bordered>
+              <Text>Comment</Text>
+            </CardItem>
+            <CardItem header>
+              <Text>Costumer </Text>
+            </CardItem>
+            <CardItem bordered>
+              <Text>Comment</Text>
+            </CardItem>
+            <CardItem header>
+              <Text>Costumer </Text>
+            </CardItem>
+            <CardItem bordered>
+              <Text>Comment</Text>
+            </CardItem>
+          </Card>
+          <Card>
+            <CardItem header bordered>
+              <Left>
+                <Text>Product Q & A</Text>
+              </Left>
+              <Body />
+              <Right>
+                <Button transparent>
+                  <Icon type="Entypo" name="chevron-thin-right" />
+                </Button>
+              </Right>
+            </CardItem>
+          </Card>
         </Content>
         <Footer>
           <FooterTab>

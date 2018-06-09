@@ -24,6 +24,9 @@ export default class Profile extends Component {
   favorite = () => {
     this.props.navigation.navigate("Favorites");
   };
+  setting = () => {
+    this.props.navigation.navigate("Setting");
+  };
   render() {
     return (
       <Container style={{ backgroundColor: "rgba(0,0,0, 0.2)" }}>
@@ -40,7 +43,7 @@ export default class Profile extends Component {
         </Header>
         <Content>
           <HeaderProfile />
-          <CardProfile favorite={this.favorite} />
+          <CardProfile favorite={this.favorite} setting={this.setting} />
         </Content>
       </Container>
     );

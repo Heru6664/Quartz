@@ -2,7 +2,7 @@ import { View, Icon, Card, CardItem, Text, Button } from "native-base";
 import React, { Component } from "react";
 import { TouchableOpacity, StyleSheet } from "react-native";
 
-export default ({ favorite }) => (
+export default ({ favorite, setting }) => (
   <View>
     <Card>
       <TouchableOpacity>
@@ -105,7 +105,7 @@ export default ({ favorite }) => (
       </TouchableOpacity>
     </Card>
     <Card>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setting()}>
         <CardItem bordered>
           <CardItem style={{ marginVertical: -10 }}>
             <Icon name="settings" />
