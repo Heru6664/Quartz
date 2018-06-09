@@ -10,20 +10,69 @@ import {
   Title,
   Button,
   Icon,
-  View
+  View,
+  Card,
+  CardItem,
+  Thumbnail
 } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
+import { connect } from "react-redux";
 
-export default class Profile extends Component {
+class EmptyCart extends Component {
+  render() {
+    return (
+      <View style={styles.iconContainer}>
+        <Icon style={styles.icon} type="Ionicons" name="ios-cart-outline" />
+        <Text>Your cart is empty :(</Text>
+        <Button
+          style={styles.button}
+          onPress={() => this.props.navigation.navigate("Dashboard")}
+        >
+          <Text style={styles.buttonText}>Buy something now!</Text>
+        </Button>
+      </View>
+    );
+  }
+}
+
+// class notEmpty extends Component {
+//   render() {
+//     return (
+//       <View style={styles.iconContainer}>
+//         <Icon style={styles.icon} type="Ionicons" name="ios-cart-outline" />
+//         <Text>Your cart is empty :(</Text>
+//       </View>
+//     );
+//   }
+// }
+
+class Cart extends Component {
+  renderItem = item => (
+    <TouchableOpacity>
+      <Card>
+        <CardItem>
+          <CardItem>
+            <Left>
+              <Thumbnail source={{ uri: item.img }} />
+
+              <Body>
+                <Text>{item.name}</Text>
+                <Text note>{item.category}</Text>
+              </Body>
+            </Left>
+            <Right />
+          </CardItem>
+        </CardItem>
+      </Card>
+    </TouchableOpacity>
+  );
+  goDashboard = () => {};
   render() {
     return (
       <Container>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="arrow-back" />
             </Button>
           </Left>
@@ -33,16 +82,11 @@ export default class Profile extends Component {
           <Right />
         </Header>
         <Content>
-          <View style={styles.iconContainer}>
-            <Icon style={styles.icon} type="Ionicons" name="ios-cart-outline" />
-            <Text>Your cart is empty :(</Text>
-            <Button
-              style={styles.button}
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-            >
-              <Text style={styles.buttonText}>Buy something now!</Text>
-            </Button>
-          </View>
+          {/* <EmptyCart /> */}
+          <FlatList
+            data={this.props.product}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
         </Content>
       </Container>
     );
@@ -71,3 +115,9 @@ const styles = StyleSheet.create({
     color: "#000"
   }
 });
+
+const mapStateToProps = state => ({
+  product: state.content.cart
+});
+
+export default connect(mapStateToProps)(Cart);

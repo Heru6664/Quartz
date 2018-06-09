@@ -21,15 +21,15 @@ import { ListItem } from "react-native-elements";
 import CardProfile from "../components/CardProfile";
 
 export default class Profile extends Component {
+  favorite = () => {
+    this.props.navigation.navigate("Favorites");
+  };
   render() {
     return (
       <Container style={{ backgroundColor: "rgba(0,0,0, 0.2)" }}>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="arrow-back" />
             </Button>
           </Left>
@@ -40,7 +40,7 @@ export default class Profile extends Component {
         </Header>
         <Content>
           <HeaderProfile />
-          <CardProfile />
+          <CardProfile favorite={this.favorite} />
         </Content>
       </Container>
     );

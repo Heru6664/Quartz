@@ -56,10 +56,7 @@ class NContact extends Component {
       <Container>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Contact")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="close" />
             </Button>
           </Left>

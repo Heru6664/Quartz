@@ -78,7 +78,7 @@ export class Dashboard extends Component {
         <Header style={styles.header}>
           <Left>
             <Button
-              onPress={() => this.props.navigation.navigate("DrawerOpen")}
+              onPress={() => this.props.navigation.openDrawer()}
               transparent
             >
               <Icon style={styles.iconHead} name="menu" />

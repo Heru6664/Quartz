@@ -23,26 +23,28 @@ import { TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
 import { ListItem } from "react-native-elements";
 import { connect } from "react-redux";
 import CardProfile from "../components/CardProfile";
+import { addCart, addFav } from "../action/contentDashboard";
 
 class Profile extends Component {
   state = {
     like: false
   };
-  addFav = () => {
+  addFav = detail => {
     this.setState({ like: !this.state.like });
+    this.props.dispatch(addFav(detail));
   };
   openCart = () => {
     this.props.navigation.navigate("Cart");
+  };
+  addCart = detail => {
+    this.props.dispatch(addCart(detail));
   };
   render() {
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="arrow-back" />
             </Button>
           </Left>
@@ -52,6 +54,7 @@ class Profile extends Component {
           <Right />
         </Header>
         <Content style={styles.content}>
+          {/* Content product */}
           <Card>
             <CardItem style={styles.headerProduct}>
               <Body>
@@ -83,12 +86,21 @@ class Profile extends Component {
             <CardItem>
               <Text>{this.props.detail.description}</Text>
             </CardItem>
+            <CardItem>
+              <Button transparent>
+                <Text> Show More</Text>
+              </Button>
+            </CardItem>
           </Card>
+          {/*  */}
         </Content>
         <Footer>
           <FooterTab>
             <View style={styles.leftIcon}>
-              <Button onPress={() => this.addFav()} transparent>
+              <Button
+                onPress={() => this.addFav(this.props.detail)}
+                transparent
+              >
                 <Icon
                   active={this.state.like}
                   style={styles.ion}
@@ -101,7 +113,11 @@ class Profile extends Component {
                 <Icon style={styles.ion} name="cart" />
               </Button>
             </View>
-            <Button style={styles.leftTab} transparent>
+            <Button
+              onPress={() => this.addCart(this.props.detail)}
+              style={styles.leftTab}
+              transparent
+            >
               <Text style={styles.text}>Add to cart</Text>
             </Button>
             <Button style={styles.rightTab} transparent>

@@ -6,7 +6,11 @@
 
 import React, { Component } from "react";
 import { StyleSheet, View, Text } from "react-native";
-import { createStackNavigator, DrawerNavigator } from "react-navigation";
+import {
+  createStackNavigator,
+  createDrawerNavigator,
+  DrawerActions
+} from "react-navigation";
 
 import About from "./screens/About";
 import Cart from "./screens/Cart";
@@ -21,13 +25,14 @@ import Post from "./screens/Post";
 import Profile from "./screens/Profile";
 import Setting from "./screens/Setting";
 import ProductDesc from "./screens/ProductDesc";
+import Favorites from "./screens/Favorites";
 
 import SideBar from "./components/SideBar";
 
-const Root = DrawerNavigator(
+const navigation = createStackNavigator(
   {
-    Home: Home,
     Dashboard: Dashboard,
+    Home: Home,
     Chat: Chat,
     Cart: Cart,
     Post: Post,
@@ -36,13 +41,23 @@ const Root = DrawerNavigator(
     Profile: Profile,
     Setting: Setting,
     About: About,
-    ProductDesc: ProductDesc
+    ProductDesc: ProductDesc,
+    Favorites: Favorites
   },
   {
-    initialRouteName: "ProductDesc",
+    headerMode: "none",
+    initialRouteName: "Dashboard"
+  }
+);
+const Root = createDrawerNavigator(
+  {
+    navigation: navigation
+  },
+  {
     contentComponent: props => {
       const navigate = route => {
-        return props.navigation.navigate(route);
+        props.navigation.navigate(route);
+        props.navigation.dispatch(DrawerActions.closeDrawer());
       };
 
       return <SideBar handlePress={navigate} {...props} />;

@@ -33,10 +33,7 @@ export class Chat extends Component {
       <Container>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="arrow-back" />
             </Button>
           </Left>

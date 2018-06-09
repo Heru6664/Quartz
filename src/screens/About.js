@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import { StyleSheet, Image } from "react-native";
 
-export default class Profile extends Component {
+export default class About extends Component {
   render() {
     return (
       <Container style={styles.container}>

@@ -4,6 +4,8 @@ export const FETCH_CONTENT_BEGIN = "FETCH_CONTENT_BEGIN";
 export const FETCH_CONTENT_SUCCESS = "FETCH_CONTENT_SUCCESS";
 export const FETCH_CONTENT_FAILED = "FETCH_CONTENT_FAILED";
 export const GET_DETAIL = "GET_DETAIL";
+export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_FAV = "ADD_TO_FAV";
 
 export const fecthContentBegin = () => ({
   type: FETCH_CONTENT_BEGIN
@@ -36,5 +38,19 @@ export const getDetail = details => ({
   type: GET_DETAIL,
   payload: {
     details
+  }
+});
+
+export const addCart = product => ({
+  type: ADD_TO_CART,
+  payload: {
+    product
+  }
+});
+
+export const addFav = liked => ({
+  type: ADD_TO_FAV,
+  payload: {
+    liked
   }
 });
