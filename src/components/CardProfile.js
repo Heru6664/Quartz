@@ -1,144 +1,119 @@
 import { View, Icon, Card, CardItem, Text, Button } from "native-base";
 import React, { Component } from "react";
-import { TouchableOpacity, StyleSheet } from "react-native";
+import { TouchableOpacity, StyleSheet, FlatList } from "react-native";
 
-export default ({ favorite, setting }) => (
-  <View>
-    <Card>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="chatbubbles" />
-            <Text>Inbox</Text>
-          </CardItem>
+export default class CardProfile extends Component {
+  constructor(props) {
+    super(props);
+  }
+  state = {
+    routes1: [
+      { type: "Ionicons", icon: "chatbubbles", name: "Inbox", route: "Chat" },
+      { type: "Ionicons", icon: "basket", name: "My Order", route: "MyOrder" },
+      {
+        type: "Ionicons",
+        icon: "heart",
+        name: "Favorites",
+        route: "Favorites"
+      },
+      { type: "Entypo", icon: "wallet", name: "Wallet", route: "Wallet" },
+      {
+        type: "Entypo",
+        icon: "credit-card",
+        name: "Credit Card",
+        route: "CreditCard"
+      },
+      { type: "Ionicons", icon: "star", name: "My Review", route: "MyReview" },
+      { type: "Ionicons", icon: "cart", name: "Cart", route: "Cart" }
+    ],
+    routes2: [
+      { type: "Entypo", icon: "globe", name: "Language", route: "Language" },
+      {
+        type: "EvilIcons",
+        icon: "location",
+        name: "My Adress",
+        route: "MyAdress"
+      },
+      {
+        type: "Ionicons",
+        icon: "ios-mail-outline",
+        name: "Change Email",
+        route: "CEmail"
+      },
+      {
+        type: "SimpleLineIcons",
+        icon: "lock",
+        name: "Change Password",
+        route: "CPassword"
+      },
+      {
+        type: "MaterialIcons",
+        icon: "security",
+        name: "Security Center",
+        route: "Security"
+      }
+    ],
+    routes3: [
+      { type: "Ionicons", icon: "settings", name: "Setting", route: "Setting" },
+      {
+        type: "MaterialIcons",
+        icon: "feedback",
+        name: "Feedback",
+        route: "Feedback"
+      },
+      {
+        type: "Ionicons",
+        icon: "ios-help-circle-outline",
+        name: "Help",
+        route: "Help"
+      }
+    ]
+  };
+  renderItem = item => (
+    <TouchableOpacity onPress={() => this.props.navigator(item.route)}>
+      <CardItem bordered>
+        <CardItem style={{ marginVertical: -10 }}>
+          <Icon type={item.type} name={item.icon} />
+          <Text>{item.name}</Text>
         </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="basket" />
-            <Text>My Order</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => favorite()}>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="heart" />
-            <Text>Favorites</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="Entypo" name="wallet" />
-            <Text>wallet</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="Entypo" name="credit-card" />
-            <Text>Credit Card</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="star" />
-            <Text>My Review</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="cart" />
-            <Text>Cart</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-    </Card>
-    <Card>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="Entypo" name="globe" />
-            <Text>Language</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="EvilIcons" name="location" />
-            <Text>My Adress</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="Ionicons" name="ios-mail-outline" />
-            <Text>Change Email</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="SimpleLineIcons" name="lock" />
-            <Text>Change Password</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="MaterialIcons" name="security" />
-            <Text>Security Center</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-    </Card>
-    <Card>
-      <TouchableOpacity onPress={() => setting()}>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon name="settings" />
-            <Text>Setting</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="MaterialIcons" name="feedback" />
-            <Text>Feedback</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-      <TouchableOpacity>
-        <CardItem bordered>
-          <CardItem style={{ marginVertical: -10 }}>
-            <Icon type="Ionicons" name="ios-help-circle-outline" />
-            <Text>Help</Text>
-          </CardItem>
-        </CardItem>
-      </TouchableOpacity>
-    </Card>
-    <Card>
-      <CardItem>
-        <Button style={styles.button} bordered dark>
-          <Text>LOG OUT</Text>
-        </Button>
       </CardItem>
-    </Card>
-  </View>
-);
+    </TouchableOpacity>
+  );
+  render() {
+    return (
+      <View>
+        <Card>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.routes1}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        </Card>
+        <Card>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.routes2}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        </Card>
+        <Card>
+          <FlatList
+            keyExtractor={(item, index) => index.toString()}
+            data={this.state.routes3}
+            renderItem={({ item }) => this.renderItem(item)}
+          />
+        </Card>
+        <Card>
+          <CardItem>
+            <Button style={styles.button} bordered dark>
+              <Text>LOG OUT</Text>
+            </Button>
+          </CardItem>
+        </Card>
+      </View>
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   button: {

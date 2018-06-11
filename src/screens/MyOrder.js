@@ -18,21 +18,18 @@ import {
 } from "native-base";
 import { StyleSheet, Image } from "react-native";
 
-export default class About extends Component {
+export default class MyOrder extends Component {
   render() {
     return (
       <Container style={styles.container}>
         <Header>
           <Left>
-            <Button
-              onPress={() => this.props.navigation.navigate("Dashboard")}
-              transparent
-            >
+            <Button onPress={() => this.props.navigation.goBack()} transparent>
               <Icon name="arrow-back" />
             </Button>
           </Left>
           <Body>
-            <Title>About</Title>
+            <Title>My Order</Title>
           </Body>
           <Right />
         </Header>

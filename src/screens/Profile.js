@@ -21,11 +21,8 @@ import { ListItem } from "react-native-elements";
 import CardProfile from "../components/CardProfile";
 
 export default class Profile extends Component {
-  favorite = () => {
-    this.props.navigation.navigate("Favorites");
-  };
-  setting = () => {
-    this.props.navigation.navigate("Setting");
+  navigate = route => {
+    this.props.navigation.navigate(route);
   };
   render() {
     return (
@@ -43,7 +40,7 @@ export default class Profile extends Component {
         </Header>
         <Content>
           <HeaderProfile />
-          <CardProfile favorite={this.favorite} setting={this.setting} />
+          <CardProfile navigator={this.navigate} />
         </Content>
       </Container>
     );
