@@ -24,7 +24,8 @@ import {
   INC_TOTAL,
   incTotal,
   decTotal,
-  getDetail
+  getDetail,
+  delCart
 } from "../action/contentDashboard";
 
 class EmptyCart extends Component {
@@ -73,12 +74,16 @@ class Cart extends Component {
     this.props.dispatch(getDetail(detail));
     this.props.navigation.navigate("ProductDesc");
   };
+  delete = del => {
+    this.props.dispatch(delCart(del));
+  };
   calculateTotalVal = () => {
     let val = 0;
-    this.props.product.forEach(prev => {
-      val += prev.price;
+    this.props.product.forEach(data => {
+      for (let a = 0; a < data.total; a++) {
+        val += data.price;
+      }
     });
-    console.log(val);
     return val;
   };
 
@@ -109,7 +114,7 @@ class Cart extends Component {
           <Icon name="add" />
         </Button>
         <Right>
-          <Button transparent>
+          <Button onPress={() => this.delete(item)} transparent>
             <Text>Delete</Text>
             <Icon name="trash" />
           </Button>

@@ -6,7 +6,8 @@ import {
   ADD_TO_CART,
   ADD_TO_FAV,
   INC_TOTAL,
-  DEC_TOTAL
+  DEC_TOTAL,
+  DEL_CART
 } from "../action/contentDashboard";
 
 const initialState = {
@@ -51,6 +52,20 @@ export default (state = initialState, action) => {
         ...state,
         cart: [...state.cart, { ...action.payload.product, total: 1 }]
       };
+
+    case DEL_CART:
+      const indexPCart = state.cart.findIndex(data => {
+        return data.id === action.payload.product.id;
+      });
+      if (indexPCart !== -1) {
+        return {
+          ...state,
+          cart: [
+            ...state.cart.slice(0, indexPCart),
+            ...state.cart.slice(indexPCart + 1)
+          ]
+        };
+      }
 
     case INC_TOTAL:
       const incItem = state.cart.findIndex(data => {
