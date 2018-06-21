@@ -37,6 +37,7 @@ import Security from "./screens/Security";
 import Help from "./screens/Help";
 import CreditCard from "./screens/CreditCard";
 import Feedback from "./screens/Feedback";
+import OrderSummary from "./screens/OrderSummary";
 
 import SideBar from "./components/SideBar";
 
@@ -64,7 +65,8 @@ const navigation = createStackNavigator(
     CPassword: CPassword,
     Security: Security,
     Feedback: Feedback,
-    Help: Help
+    Help: Help,
+    OrderSummary: OrderSummary
   },
   {
     headerMode: "none",

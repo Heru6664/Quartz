@@ -16,10 +16,12 @@ import {
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { createStackNavigator, DrawerNavigator } from "react-navigation";
 import Home from "./Home";
-import DashboardContent from "../components/DashboardContent";
 import { connect } from "react-redux";
 import { fetchContent, getDetail } from "../action/contentDashboard";
+
+import DashboardContent from "../components/DashboardContent";
 import SideBar from "../components/SideBar";
+import DashboardSwiper from "../components/DashboardSwiper";
 
 export class Dashboard extends Component {
   static navigationOptions = {
@@ -112,6 +114,7 @@ export class Dashboard extends Component {
           </Right>
         </Header>
         <Content>
+          <DashboardSwiper />
           <Text style={{ color: "red", fontSize: 30 }}>Flash Sale!</Text>
           <FlatList
             data={this.props.products}

@@ -186,7 +186,7 @@ class Profile extends Component {
             >
               <Text style={styles.text}>Add to cart</Text>
             </Button>
-            <Button style={styles.rightTab} transparent>
+            <Button on style={styles.rightTab} transparent>
               <Text style={styles.text}>Buy Now</Text>
             </Button>
           </FooterTab>
