@@ -13,10 +13,19 @@ import {
   View,
   Card,
   CardItem,
-  Thumbnail
+  Thumbnail,
+  H2,
+  FooterTab,
+  Footer
 } from "native-base";
 import { StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import { connect } from "react-redux";
+import {
+  INC_TOTAL,
+  incTotal,
+  decTotal,
+  getDetail
+} from "../action/contentDashboard";
 
 class EmptyCart extends Component {
   render() {
@@ -47,26 +56,67 @@ class EmptyCart extends Component {
 // }
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      total: 1
+    };
+  }
+
+  increaseTotal = product => {
+    this.props.dispatch(incTotal(product));
+  };
+  decreaseTotal = decProduct => {
+    this.props.dispatch(decTotal(decProduct));
+  };
+  showDetail = detail => {
+    this.props.dispatch(getDetail(detail));
+    this.props.navigation.navigate("ProductDesc");
+  };
+  calculateTotalVal = () => {
+    let val = 0;
+    this.props.product.forEach(prev => {
+      val += prev.price;
+    });
+    console.log(val);
+    return val;
+  };
+
   renderItem = item => (
-    <TouchableOpacity>
-      <Card>
+    <Card>
+      <TouchableOpacity onPress={() => this.showDetail(item)}>
         <CardItem>
           <CardItem>
             <Left>
               <Thumbnail source={{ uri: item.img }} />
-
               <Body>
                 <Text>{item.name}</Text>
                 <Text note>{item.category}</Text>
               </Body>
             </Left>
-            <Right />
+            <Right>
+              <H2>IDR {item.price}</H2>
+            </Right>
           </CardItem>
         </CardItem>
-      </Card>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      <CardItem>
+        <Button onPress={() => this.decreaseTotal(item)} transparent>
+          <Icon type="Entypo" name="minus" />
+        </Button>
+        <Text>{item.total}</Text>
+        <Button onPress={() => this.increaseTotal(item)} transparent>
+          <Icon name="add" />
+        </Button>
+        <Right>
+          <Button transparent>
+            <Text>Delete</Text>
+            <Icon name="trash" />
+          </Button>
+        </Right>
+      </CardItem>
+    </Card>
   );
-  goDashboard = () => {};
   render() {
     return (
       <Container>
@@ -88,6 +138,31 @@ class Cart extends Component {
             renderItem={({ item }) => this.renderItem(item)}
           />
         </Content>
+        <Footer style={styles.footer}>
+          <FooterTab style={styles.footerTabContainer}>
+            <View style={styles.vw}>
+              <CardItem>
+                <Text>Total Amount:</Text>
+                <Body />
+                <Right>
+                  <Text style={styles.amount}>{this.calculateTotalVal()}</Text>
+                </Right>
+              </CardItem>
+              <CardItem>
+                <Text>Total Discount:</Text>
+                <Body />
+                <Right>
+                  <Text style={styles.amount}>0</Text>
+                </Right>
+              </CardItem>
+            </View>
+            <Right>
+              <Button danger bordered>
+                <Text>Next</Text>
+              </Button>
+            </Right>
+          </FooterTab>
+        </Footer>
       </Container>
     );
   }
@@ -113,6 +188,20 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "#000"
+  },
+  footerTabContainer: {
+    padding: 10,
+    flexDirection: "row"
+  },
+  footer: {
+    height: 100,
+    backgroundColor: "white"
+  },
+  vw: {
+    width: 280
+  },
+  amount: {
+    textAlign: "right"
   }
 });
 

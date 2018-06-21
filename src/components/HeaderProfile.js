@@ -11,12 +11,9 @@ export default class HeaderProfile extends Component {
       >
         <View style={styles.header}>
           <View style={styles.avatarWrap}>
-            <Image
-              style={styles.avatar}
-              source={require("../img/avatar.jpg")}
-            />
+            <Image style={styles.avatar} source={require("../img/H.png")} />
           </View>
-          <Text style={styles.name}>Barbara Lennie</Text>
+          <Text style={styles.name}>Heru Julyanto</Text>
         </View>
       </ImageBackground>
     );

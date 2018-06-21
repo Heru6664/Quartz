@@ -66,7 +66,7 @@ export class Dashboard extends Component {
     <TouchableOpacity style={styles.th}>
       <Card title={item.name} image={{ uri: item.img }}>
         <CardItem style={styles.itemContainer}>
-          <Text>{item.price}</Text>
+          <Text>IDR {item.price}</Text>
         </CardItem>
         <CardItem />
       </Card>

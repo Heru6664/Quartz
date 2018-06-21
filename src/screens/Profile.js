@@ -36,7 +36,11 @@ export default class Profile extends Component {
           <Body>
             <Title>Profile</Title>
           </Body>
-          <Right />
+          <Right>
+            <Button transparent>
+              <Icon type="MaterialIcons" name="edit" />
+            </Button>
+          </Right>
         </Header>
         <Content>
           <HeaderProfile />

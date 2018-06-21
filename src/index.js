@@ -68,7 +68,7 @@ const navigation = createStackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "Profile"
+    initialRouteName: "Dashboard"
   }
 );
 const Root = createDrawerNavigator(

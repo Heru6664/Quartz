@@ -18,7 +18,7 @@ import {
 } from "native-base";
 import { StyleSheet, Image } from "react-native";
 
-export default class CreditCard extends Component {
+export default class EProfile extends Component {
   render() {
     return (
       <Container style={styles.container}>
@@ -29,11 +29,14 @@ export default class CreditCard extends Component {
             </Button>
           </Left>
           <Body>
-            <Title>Credit Card</Title>
+            <Title>Edit Profile</Title>
           </Body>
           <Right />
         </Header>
         <Content style={styles.content} />
+        <Footer style={styles.footerContainer}>
+          <Text style={styles.footer}>Copyright 2018</Text>
+        </Footer>
       </Container>
     );
   }

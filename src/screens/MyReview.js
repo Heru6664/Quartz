@@ -35,7 +35,8 @@ export default class MyReview extends Component {
         </Header>
         <Content style={styles.content} />
         <Footer style={styles.footerContainer}>
-          <Text style={styles.footer}>Copyright 2018</Text>
+        <Button>
+          <Text>Buy Something</Text></Button>
         </Footer>
       </Container>
     );

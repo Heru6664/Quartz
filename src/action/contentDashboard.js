@@ -6,6 +6,9 @@ export const FETCH_CONTENT_FAILED = "FETCH_CONTENT_FAILED";
 export const GET_DETAIL = "GET_DETAIL";
 export const ADD_TO_CART = "ADD_TO_CART";
 export const ADD_TO_FAV = "ADD_TO_FAV";
+export const LIKED_ICON = "LIKED_ICON";
+export const INC_TOTAL = "INC_TOTAL";
+export const DEC_TOTAL = "DEC_TOTAL";
 
 export const fecthContentBegin = () => ({
   type: FETCH_CONTENT_BEGIN
@@ -45,6 +48,20 @@ export const addCart = product => ({
   type: ADD_TO_CART,
   payload: {
     product
+  }
+});
+
+export const incTotal = quantity => ({
+  type: INC_TOTAL,
+  payload: {
+    quantity
+  }
+});
+
+export const decTotal = quantity => ({
+  type: DEC_TOTAL,
+  payload: {
+    quantity
   }
 });
 

@@ -168,7 +168,7 @@ class Profile extends Component {
                 transparent
               >
                 <Icon
-                  active={this.state.like}
+                  active={this.props.detail.like}
                   style={styles.ion}
                   name="heart"
                 />
