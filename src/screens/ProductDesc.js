@@ -14,15 +14,20 @@ import {
   View,
   Title,
   Footer,
-  FooterTab
+  FooterTab,
+  Thumbnail,
+  H2,
+  Badge
   // Image
 } from "native-base";
-import HeaderProfile from "../components/HeaderProfile";
-// import Icon from "react-native-vector-icons/FontAwesome";
-import { TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
 import { ListItem } from "react-native-elements";
+import { TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
 import { connect } from "react-redux";
+import StarRating from "react-native-star-rating";
+
+import HeaderProfile from "../components/HeaderProfile";
 import CardProfile from "../components/CardProfile";
+
 import { addCart, addFav } from "../action/contentDashboard";
 
 class Profile extends Component {
@@ -72,10 +77,17 @@ class Profile extends Component {
               <Text>{this.props.detail.name}</Text>
             </CardItem>
             <CardItem>
-              <Text>The Planet</Text>
+              <StarRating
+                disabled={true}
+                maxStars={5}
+                starSize={20}
+                fullStarColor="#FFD700"
+                halfStarColor="#FFD700"
+                rating={this.props.detail.rating}
+              />
             </CardItem>
             <CardItem>
-              <Text>{this.props.detail.price}</Text>
+              <Text>$ {this.props.detail.price}</Text>
             </CardItem>
           </Card>
           {/* description */}
@@ -98,67 +110,72 @@ class Profile extends Component {
               <Text>Seller</Text>
             </CardItem>
             <CardItem bordered>
-              <Text>Frankenstein</Text>
+              <Thumbnail source={{ uri: this.props.detail.seller.sellerImg }} />
+              <Text style={styles.seller}>
+                {this.props.detail.seller.sellerName}
+              </Text>
             </CardItem>
             <CardItem>
               <Left>
-                <Text>Rating</Text>
-              </Left>
-              <Body>
-                <Text>Rating</Text>
-              </Body>
-              <Right>
-                <Text>Rating</Text>
-              </Right>
-            </CardItem>
-            <CardItem bordered>
-              <Text>view seller</Text>
-            </CardItem>
-          </Card>
-          <Card>
-            <CardItem header bordered>
-              <Left>
-                <Text>Customer Review</Text>
+                <Text>Positive Feedback</Text>
+                <H2 style={{ padding: 10 }}>
+                  {this.props.detail.seller.positiveFeedback}%
+                </H2>
               </Left>
               <Body />
               <Right>
-                <Button transparent>
-                  <Icon type="Entypo" name="chevron-thin-right" />
-                </Button>
+                <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  starSize={20}
+                  fullStarColor="#FFD700"
+                  halfStarColor="#FFD700"
+                  rating={this.props.detail.seller.sellerRating}
+                />
               </Right>
             </CardItem>
-            <CardItem header>
-              <Text>Costumer </Text>
-            </CardItem>
             <CardItem bordered>
-              <Text>Comment</Text>
-            </CardItem>
-            <CardItem header>
-              <Text>Costumer </Text>
-            </CardItem>
-            <CardItem bordered>
-              <Text>Comment</Text>
-            </CardItem>
-            <CardItem header>
-              <Text>Costumer </Text>
-            </CardItem>
-            <CardItem bordered>
-              <Text>Comment</Text>
+              <TouchableOpacity>
+                <Text>view seller</Text>
+              </TouchableOpacity>
             </CardItem>
           </Card>
           <Card>
-            <CardItem header bordered>
-              <Left>
-                <Text>Product Q & A</Text>
-              </Left>
-              <Body />
-              <Right>
-                <Button transparent>
-                  <Icon type="Entypo" name="chevron-thin-right" />
-                </Button>
-              </Right>
+            <TouchableOpacity>
+              <CardItem header bordered>
+                <Left>
+                  <Text>Customer Review</Text>
+                </Left>
+                <Body />
+                <Right>
+                  <Button transparent>
+                    <Icon type="Entypo" name="chevron-thin-right" />
+                  </Button>
+                </Right>
+              </CardItem>
+            </TouchableOpacity>
+            <CardItem header>
+              <Text>{this.props.detail.feedback.costumer} </Text>
+            </CardItem>
+            <CardItem bordered>
+              <Text>{this.props.detail.feedback.comment}</Text>
             </CardItem>
           </Card>
+          <TouchableOpacity>
+            <Card>
+              <CardItem header bordered>
+                <Left>
+                  <Text>Product Q & A</Text>
+                </Left>
+                <Body />
+                <Right>
+                  <Button transparent>
+                    <Icon type="Entypo" name="chevron-thin-right" />
+                  </Button>
+                </Right>
+              </CardItem>
+            </Card>
+          </TouchableOpacity>
         </Content>
         <Footer>
           <FooterTab>
@@ -175,7 +192,18 @@ class Profile extends Component {
               </Button>
             </View>
             <View style={styles.leftIcon}>
-              <Button onPress={() => this.openCart()} transparent>
+              <Button
+                badge
+                vertical
+                onPress={() => this.openCart()}
+                transparent
+              >
+                {this.props.length.length === 0 ? null : (
+                  <Badge info>
+                    <Text>{this.props.length.length}</Text>
+                  </Badge>
+                )}
+
                 <Icon style={styles.ion} name="cart" />
               </Button>
             </View>
@@ -231,11 +259,15 @@ const styles = StyleSheet.create({
   },
   ion: {
     color: "#2c3e50"
+  },
+  seller: {
+    marginLeft: 10
   }
 });
 
 const mapStateToProps = state => ({
-  detail: state.content.detailProduct
+  detail: state.details.detailProduct,
+  length: state.cart.cart
 });
 
 export default connect(mapStateToProps)(Profile);

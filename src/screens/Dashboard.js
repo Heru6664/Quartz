@@ -11,7 +11,9 @@ import {
   Title,
   Left,
   Body,
-  Right
+  Right,
+  Spinner,
+  Badge
 } from "native-base";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { createStackNavigator, DrawerNavigator } from "react-navigation";
@@ -60,6 +62,7 @@ export class Dashboard extends Component {
     this.props.navigation.navigate("Profile");
   };
   pressProduct = item => {
+    console.log(this.props.navigation);
     this.props.dispatch(getDetail(item));
     this.props.navigation.navigate("ProductDesc");
   };
@@ -114,8 +117,9 @@ export class Dashboard extends Component {
           </Right>
         </Header>
         <Content>
-          <DashboardSwiper />
+          {/* <DashboardSwiper /> */}
           <Text style={{ color: "red", fontSize: 30 }}>Flash Sale!</Text>
+          {this.props.loading ? <Spinner /> : null}
           <FlatList
             data={this.props.products}
             renderItem={({ item }) => (
@@ -126,7 +130,7 @@ export class Dashboard extends Component {
         </Content>
         <Footer>
           <FooterTab>
-            <Button vertical>
+            <Button active vertical>
               <Icon name="home" />
               <Text style={styles.footerContent}>Home</Text>
             </Button>
@@ -138,7 +142,13 @@ export class Dashboard extends Component {
               <Icon name="camera" />
               <Text style={styles.footerContent}>Post</Text>
             </Button>
-            <Button onPress={this.handleCart} vertical>
+            <Button badge onPress={this.handleCart} vertical>
+              {this.props.length.length === 0 ? null : (
+                <Badge style={{ color: "#ffffff" }} danger>
+                  <Text>{this.props.length.length}</Text>
+                </Badge>
+              )}
+
               <Icon name="cart" />
               <Text style={styles.footerContent}>Cart</Text>
             </Button>
@@ -171,6 +181,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   products: state.content.content,
+  length: state.cart.cart,
   loading: state.content.loading,
   error: state.content.error
 });

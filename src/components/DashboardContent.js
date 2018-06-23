@@ -7,7 +7,7 @@ export default ({ item, pressProduct }) => (
   <TouchableOpacity onPress={() => pressProduct(item)} style={styles.th}>
     <Card title={item.name} image={{ uri: item.img }}>
       <CardItem style={styles.itemContainer}>
-        <Text>{item.price}</Text>
+        <Text>$ {item.price}</Text>
       </CardItem>
       <CardItem />
     </Card>

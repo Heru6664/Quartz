@@ -1,15 +1,53 @@
 import axios from "axios";
 
+export const ADD_TO_CART = "ADD_TO_CART";
+export const ADD_TO_FAV = "ADD_TO_FAV";
+export const DEC_TOTAL = "DEC_TOTAL";
+export const DEL_CART = "DEL_CART";
 export const FETCH_CONTENT_BEGIN = "FETCH_CONTENT_BEGIN";
 export const FETCH_CONTENT_SUCCESS = "FETCH_CONTENT_SUCCESS";
 export const FETCH_CONTENT_FAILED = "FETCH_CONTENT_FAILED";
 export const GET_DETAIL = "GET_DETAIL";
-export const ADD_TO_CART = "ADD_TO_CART";
-export const DEL_CART = "DEL_CART";
-export const ADD_TO_FAV = "ADD_TO_FAV";
-export const LIKED_ICON = "LIKED_ICON";
 export const INC_TOTAL = "INC_TOTAL";
-export const DEC_TOTAL = "DEC_TOTAL";
+export const LOGIN_BEGIN = "LOGIN_BEGIN";
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAILED = "LOGIN_FAILED";
+export const LIKED_ICON = "LIKED_ICON";
+export const REMV_FRM_FAV = "REMV_FRM_FAV";
+
+export const loginBegin = () => ({
+  type: LOGIN_BEGIN
+});
+
+export const loginSuccess = user => ({
+  type: LOGIN_SUCCESS,
+  payload: { user }
+});
+
+export const loginFailed = error => ({
+  type: LOGIN_FAILED,
+  payload: { error }
+});
+
+export const loginAuth = (username, password) => {
+  return dispatch => {
+    dispatch(loginBegin());
+    axios
+      .post("https://us-central1-quartz-868c9.cloudfunctions.net/loginAuth", {
+        username: username,
+        password: password
+      })
+      .then(res => {
+        if (res.data.status === "success") {
+          dispatch(loginSuccess(res.data));
+        } else {
+          dispatch(loginFailed(res.data));
+        }
+        return res.data;
+      })
+      .catch(e => console.log(e));
+  };
+};
 
 export const fecthContentBegin = () => ({
   type: FETCH_CONTENT_BEGIN
@@ -29,9 +67,9 @@ export const fetchContent = () => {
   return dispatch => {
     dispatch(fecthContentBegin());
     axios
-      .get("https://us-central1-quartz-868c9.cloudfunctions.net/helloWorld")
+      .get("https://us-central1-quartz-868c9.cloudfunctions.net/products")
       .then(res => {
-        dispatch(fetchContentSuccess(res.data));
+        dispatch(fetchContentSuccess(res.data.products));
         return res.data;
       })
       .catch(e => console.log(e));
@@ -75,6 +113,13 @@ export const decTotal = quantity => ({
 
 export const addFav = liked => ({
   type: ADD_TO_FAV,
+  payload: {
+    liked
+  }
+});
+
+export const remvFav = liked => ({
+  type: REMV_FRM_FAV,
   payload: {
     liked
   }

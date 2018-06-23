@@ -10,23 +10,20 @@ import {
   Title,
   Left,
   Button,
-  Toast
+  Toast,
+  Spinner
 } from "native-base";
+import { loginAuth } from "../action/contentDashboard";
+import { connect } from "react-redux";
 
-export default class Home extends Component {
+class Home extends Component {
   state = {
     username: "",
     password: ""
   };
 
   _handleLogin = () => {
-    if (this.state.username === "heru" && this.state.password === "heruheru") {
-      this.props.navigation.navigate("Dashboard");
-    } else if (this.state.username === "" && this.state.password === "") {
-      Alert.alert("Login failed", "Please enter username and password");
-    } else {
-      Alert.alert("Login Failed", "Wrong username or password!");
-    }
+    this.props.dispatch(loginAuth(this.state.username, this.state.password));
   };
   render() {
     return (
@@ -35,9 +32,11 @@ export default class Home extends Component {
           <Title> Quartz PE </Title>
         </Header>
         <Content style={styles.content}>
+          {this.props.isLoadingLogin ? <Spinner color="blue" /> : null}
           <Item style={styles.item} rounded>
             <Input
               placeholder="Username"
+              autoCapitalize={false}
               onChangeText={username => this.setState({ username })}
             />
           </Item>
@@ -96,3 +95,10 @@ const styles = StyleSheet.create({
     textAlign: "center"
   }
 });
+
+const mapStateToProps = state => ({
+  user: state.auth.user,
+  isLoadingLogin: state.auth.isLoadingLogin
+});
+
+export default connect(mapStateToProps)(Home);

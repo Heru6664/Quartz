@@ -81,7 +81,7 @@ class Cart extends Component {
     let val = 0;
     this.props.product.forEach(data => {
       for (let a = 0; a < data.total; a++) {
-        val += data.price;
+        val += parseFloat(data.price);
       }
     });
     return val;
@@ -100,7 +100,7 @@ class Cart extends Component {
               </Body>
             </Left>
             <Right>
-              <H2>IDR {item.price}</H2>
+              <H2>$ {item.price}</H2>
             </Right>
           </CardItem>
         </CardItem>
@@ -150,7 +150,9 @@ class Cart extends Component {
                 <Text>Total Amount:</Text>
                 <Body />
                 <Right>
-                  <Text style={styles.amount}>{this.calculateTotalVal()}</Text>
+                  <Text style={styles.amount}>
+                    $ {this.calculateTotalVal()}
+                  </Text>
                 </Right>
               </CardItem>
               <CardItem>
@@ -211,7 +213,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  product: state.content.cart
+  product: state.cart.cart
 });
 
 export default connect(mapStateToProps)(Cart);
