@@ -1,71 +1,126 @@
-import { View, Icon, Card, CardItem, Text, Button } from "native-base";
+import {
+  View,
+  Icon,
+  Card,
+  CardItem,
+  Text,
+  Button,
+  Badge,
+  Right,
+  Body
+} from "native-base";
 import React, { Component } from "react";
 import { TouchableOpacity, StyleSheet, FlatList } from "react-native";
+import { connect } from "react-redux";
 
-export default class CardProfile extends Component {
+class CardProfile extends Component {
   constructor(props) {
     super(props);
   }
   state = {
     routes1: [
-      { type: "Ionicons", icon: "chatbubbles", name: "Inbox", route: "Chat" },
-      { type: "Ionicons", icon: "basket", name: "My Order", route: "MyOrder" },
+      {
+        type: "Ionicons",
+        icon: "chatbubbles",
+        name: "Inbox",
+        route: "Chat",
+        badge: 1
+      },
+      {
+        type: "Ionicons",
+        icon: "basket",
+        name: "My Order",
+        route: "MyOrder",
+        badge: 1
+      },
       {
         type: "Ionicons",
         icon: "heart",
         name: "Favorites",
-        route: "Favorites"
+        route: "Favorites",
+        badge: 1
       },
-      { type: "Entypo", icon: "wallet", name: "Wallet", route: "Wallet" },
+      {
+        type: "Entypo",
+        icon: "wallet",
+        name: "Wallet",
+        route: "Wallet",
+        badge: 1
+      },
       {
         type: "Entypo",
         icon: "credit-card",
         name: "Credit Card",
-        route: "CreditCard"
+        route: "CreditCard",
+        badge: 1
       },
-      { type: "Ionicons", icon: "star", name: "My Review", route: "MyReview" },
-      { type: "Ionicons", icon: "cart", name: "Cart", route: "Cart" }
+      {
+        type: "Ionicons",
+        icon: "star",
+        name: "My Review",
+        route: "MyReview",
+        badge: 1
+      },
+      { type: "Ionicons", icon: "cart", name: "Cart", route: "Cart", badge: 1 }
     ],
     routes2: [
-      { type: "Entypo", icon: "globe", name: "Language", route: "Language" },
+      {
+        type: "Entypo",
+        icon: "globe",
+        name: "Language",
+        route: "Language",
+        badge: 1
+      },
       {
         type: "EvilIcons",
         icon: "location",
         name: "My Adress",
-        route: "MyAdress"
+        route: "MyAdress",
+        badge: 1
       },
       {
         type: "Ionicons",
         icon: "ios-mail-outline",
         name: "Change Email",
-        route: "CEmail"
+        route: "CEmail",
+        badge: 1
       },
       {
         type: "SimpleLineIcons",
         icon: "lock",
         name: "Change Password",
-        route: "CPassword"
+        route: "CPassword",
+        badge: 1
       },
       {
         type: "MaterialIcons",
         icon: "security",
         name: "Security Center",
-        route: "Security"
+        route: "Security",
+        badge: 1
       }
     ],
     routes3: [
-      { type: "Ionicons", icon: "settings", name: "Setting", route: "Setting" },
+      {
+        type: "Ionicons",
+        icon: "settings",
+        name: "Setting",
+        route: "Setting",
+        badge: 1
+      },
       {
         type: "MaterialIcons",
         icon: "feedback",
         name: "Feedback",
-        route: "Feedback"
+        route: "Feedback",
+        badge: 1
       },
       {
         type: "Ionicons",
         icon: "ios-help-circle-outline",
         name: "Help",
-        route: "Help"
+        route: "Help",
+        badge: 1
       }
     ]
   };
@@ -75,6 +130,8 @@ export default class CardProfile extends Component {
         <CardItem style={{ marginVertical: -10 }}>
           <Icon type={item.type} name={item.icon} />
           <Text>{item.name}</Text>
+          <Body />
+          <Right />
         </CardItem>
       </CardItem>
     </TouchableOpacity>
@@ -122,3 +179,9 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   }
 });
+
+const mapStateToProps = state => ({
+  favorites: state.content.liked
+});
+
+export default connect(mapStateToProps)(CardProfile);

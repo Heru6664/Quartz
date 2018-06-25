@@ -14,6 +14,7 @@ export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LIKED_ICON = "LIKED_ICON";
 export const REMV_FRM_FAV = "REMV_FRM_FAV";
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 
 export const loginBegin = () => ({
   type: LOGIN_BEGIN
@@ -122,5 +123,12 @@ export const remvFav = liked => ({
   type: REMV_FRM_FAV,
   payload: {
     liked
+  }
+});
+
+export const uploadImage = image => ({
+  type: UPLOAD_IMAGE,
+  payload: {
+    image
   }
 });

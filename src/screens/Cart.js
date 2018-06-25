@@ -21,7 +21,6 @@ import {
 import { StyleSheet, Image, TouchableOpacity, FlatList } from "react-native";
 import { connect } from "react-redux";
 import {
-  INC_TOTAL,
   incTotal,
   decTotal,
   getDetail,
@@ -29,6 +28,9 @@ import {
 } from "../action/contentDashboard";
 
 class EmptyCart extends Component {
+  constructor(props) {
+    super(props);
+  }
   render() {
     return (
       <View style={styles.iconContainer}>
@@ -44,17 +46,6 @@ class EmptyCart extends Component {
     );
   }
 }
-
-// class notEmpty extends Component {
-//   render() {
-//     return (
-//       <View style={styles.iconContainer}>
-//         <Icon style={styles.icon} type="Ionicons" name="ios-cart-outline" />
-//         <Text>Your cart is empty :(</Text>
-//       </View>
-//     );
-//   }
-// }
 
 class Cart extends Component {
   constructor(props) {
@@ -136,40 +127,46 @@ class Cart extends Component {
           </Body>
           <Right />
         </Header>
-        <Content>
-          {/* <EmptyCart /> */}
-          <FlatList
-            data={this.props.product}
-            renderItem={({ item }) => this.renderItem(item)}
-          />
-        </Content>
-        <Footer style={styles.footer}>
-          <FooterTab style={styles.footerTabContainer}>
-            <View style={styles.vw}>
-              <CardItem>
-                <Text>Total Amount:</Text>
-                <Body />
+        {/* <EmptyCart /> */}
+        {this.props.length === 0 ? (
+          <EmptyCart navigation={this.props.navigation} />
+        ) : (
+          <Container>
+            <Content>
+              <FlatList
+                data={this.props.product}
+                renderItem={({ item }) => this.renderItem(item)}
+              />
+            </Content>
+            <Footer style={styles.footer}>
+              <FooterTab style={styles.footerTabContainer}>
+                <View style={styles.vw}>
+                  <CardItem>
+                    <Text>Total Amount:</Text>
+                    <Body />
+                    <Right>
+                      <Text style={styles.amount}>
+                        $ {this.calculateTotalVal()}
+                      </Text>
+                    </Right>
+                  </CardItem>
+                  <CardItem>
+                    <Text>Total Discount:</Text>
+                    <Body />
+                    <Right>
+                      <Text style={styles.amount}>0</Text>
+                    </Right>
+                  </CardItem>
+                </View>
                 <Right>
-                  <Text style={styles.amount}>
-                    $ {this.calculateTotalVal()}
-                  </Text>
+                  <Button danger bordered>
+                    <Text>Next</Text>
+                  </Button>
                 </Right>
-              </CardItem>
-              <CardItem>
-                <Text>Total Discount:</Text>
-                <Body />
-                <Right>
-                  <Text style={styles.amount}>0</Text>
-                </Right>
-              </CardItem>
-            </View>
-            <Right>
-              <Button danger bordered>
-                <Text>Next</Text>
-              </Button>
-            </Right>
-          </FooterTab>
-        </Footer>
+              </FooterTab>
+            </Footer>
+          </Container>
+        )}
       </Container>
     );
   }
@@ -213,7 +210,8 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  product: state.cart.cart
+  product: state.cart.cart,
+  length: state.cart.cart.length
 });
 
 export default connect(mapStateToProps)(Cart);

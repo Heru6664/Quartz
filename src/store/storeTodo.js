@@ -8,6 +8,7 @@ import auth from "../reducers/Login";
 import content from "../reducers/contentDashR";
 import details from "../reducers/GetDetail";
 import cart from "../reducers/Cart";
+import uploadImage from '../reducers/uploadImage'
 
 const rootReducers = combineReducers({
   todo,
@@ -15,7 +16,8 @@ const rootReducers = combineReducers({
   content,
   auth,
   details,
-  cart
+  cart,
+  uploadImage
 });
 
 const store = createStore(

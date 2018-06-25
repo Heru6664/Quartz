@@ -15,7 +15,6 @@ import {
   Left,
   Button,
   Icon,
-  Body,
   Right,
   Label,
   Card,
@@ -25,14 +24,11 @@ import {
   Input
 } from "native-base";
 import { connect } from "react-redux";
+import ImagePicker from "react-native-image-crop-picker";
 
 import PickerPost from "../components/pickerPost";
-import TodoInput from "../components/todoInput";
-import { delTodo } from "../action/actionTodo";
+import { uploadImage } from "../action/contentDashboard";
 
-const mapStateToProps = state => ({
-  todo: state.todo.todo
-});
 class Post extends Component {
   constructor(props) {
     super(props);
@@ -49,32 +45,33 @@ class Post extends Component {
       selected: value
     });
   };
-  listItem = item => {
-    const handleDel = () => {
-      this.props.dispatch(
-        delTodo({
-          id: item.id
-        })
-      );
-    };
-    return (
-      <View style={{ marginHorizontal: 10, flexDirection: "row" }}>
-        <Text
-          style={{
-            borderBottomWidth: 1,
-            width: "80%",
-            marginVertical: 12,
-            marginTop: 20
-          }}
-        >
-          {item.message}
-        </Text>
-        <Button onPress={handleDel} style={{ width: 100 }}>
-          <Text>Del</Text>
-        </Button>
-      </View>
-    );
+
+  uploadImage = () => {
+    ImagePicker.openPicker({
+      width: 300,
+      height: 400,
+      cropping: false,
+      multiple: true
+    }).then(image => {
+      this.props.dispatch(uploadImage(image));
+      console.log(this.props.images);
+    });
   };
+
+  renderImage = image => {
+    console.log(image.image);
+    <TouchableOpacity>
+      <Image
+        source={{
+          uri: image.path,
+          width: image.width,
+          height: image.height,
+          mime: image.mime
+        }}
+      />
+    </TouchableOpacity>;
+  };
+
   render() {
     return (
       <Container>
@@ -93,7 +90,14 @@ class Post extends Component {
             </CardItem>
             <CardItem>
               <View>
-                <TouchableOpacity style={styles.uploadContainer}>
+                <FlatList
+                  data={this.props.images}
+                  renderItem={({ item }) => this.renderImage(item)}
+                />
+                <TouchableOpacity
+                  onPress={() => this.uploadImage()}
+                  style={styles.uploadContainer}
+                >
                   <Icon style={styles.uploadIcon} name="add" />
                 </TouchableOpacity>
               </View>
@@ -166,8 +170,6 @@ class Post extends Component {
   }
 }
 
-export default connect(mapStateToProps)(Post);
-
 const styles = StyleSheet.create({
   content: {
     padding: 10,
@@ -201,3 +203,9 @@ const styles = StyleSheet.create({
     marginVertical: 20
   }
 });
+
+const mapStateToProps = state => ({
+  images: state.uploadImage.selectedImage
+});
+
+export default connect(mapStateToProps)(Post);

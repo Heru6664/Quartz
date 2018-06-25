@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, StyleSheet, Alert, FlatList } from "react-native";
+import { Text, StyleSheet, FlatList } from "react-native";
 import {
   Container,
   Content,
@@ -16,19 +16,15 @@ import {
   Badge
 } from "native-base";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
-import { createStackNavigator, DrawerNavigator } from "react-navigation";
-import Home from "./Home";
 import { connect } from "react-redux";
 import { fetchContent, getDetail } from "../action/contentDashboard";
 
 import DashboardContent from "../components/DashboardContent";
-import SideBar from "../components/SideBar";
-import DashboardSwiper from "../components/DashboardSwiper";
 
 export class Dashboard extends Component {
   static navigationOptions = {
     drawerLabel: "Dashboard",
-    drawerIcon: ({ tintColor }) => {
+    drawerIcon: () => {
       <Icon name="contact" />;
     }
   };
