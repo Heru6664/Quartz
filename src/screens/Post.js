@@ -5,7 +5,8 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  Image
 } from "react-native";
 import {
   Container,
@@ -37,9 +38,7 @@ class Post extends Component {
       selected: "0"
     };
   }
-  componentDidMount() {
-    console.log(this.props.todo);
-  }
+
   onValueChange = value => {
     this.setState({
       selected: value
@@ -48,28 +47,41 @@ class Post extends Component {
 
   uploadImage = () => {
     ImagePicker.openPicker({
-      width: 300,
-      height: 400,
+      width: 200,
+      height: 300,
       cropping: false,
       multiple: true
     }).then(image => {
       this.props.dispatch(uploadImage(image));
-      return image;
     });
   };
 
-  renderImage = image => {
-    console.log(image.image);
-    <TouchableOpacity>
-      <Image
-        source={{
-          uri: image.path,
-          width: image.width,
-          height: image.height,
-          mime: image.mime
-        }}
-      />
-    </TouchableOpacity>;
+  cropImage = item => {
+    ImagePicker.openCropper({
+      path: item.sourceURL,
+      width: 300,
+      height: 400
+    }).then(image => {
+      image;
+    });
+  };
+  renderImage = item => {
+    return (
+      <TouchableOpacity
+        onPress={() => this.cropImage(item)}
+        style={styles.uploadContainer}
+      >
+        <Image
+          source={{
+            uri: item.path,
+            width: item.width,
+            height: item.height,
+            mime: item.mime
+          }}
+          style={styles.uploadedImage}
+        />
+      </TouchableOpacity>
+    );
   };
 
   render() {
@@ -89,11 +101,13 @@ class Post extends Component {
               <Text>Upload Photo</Text>
             </CardItem>
             <CardItem>
-              <View>
+              <View style={styles.imageContainer}>
                 <FlatList
                   data={this.props.images}
                   renderItem={({ item }) => this.renderImage(item)}
+                  numColumns={3}
                 />
+
                 <TouchableOpacity
                   onPress={() => this.uploadImage()}
                   style={styles.uploadContainer}
@@ -176,15 +190,23 @@ const styles = StyleSheet.create({
     marginVertical: 19
   },
   uploadContainer: {
-    marginHorizontal: 15,
-    marginVertical: 15,
-    width: 100,
-    height: 100,
+    marginHorizontal: 10,
+    marginVertical: 10,
+    width: 80,
+    height: 80,
     borderWidth: 1,
     borderColor: "rgba(0,0,0, 0.5)",
     borderRadius: 5,
     justifyContent: "center",
     alignItems: "center"
+  },
+  imageContainer: {
+    flex: 1,
+    flexDirection: "column"
+  },
+  uploadedImage: {
+    width: "100%",
+    height: "100%"
   },
   textAreaContainer: {
     borderColor: "rgba(0,0,0, 0.2)",
@@ -205,7 +227,7 @@ const styles = StyleSheet.create({
 });
 
 const mapStateToProps = state => ({
-  images: state.uploadImage.selectedImage
+  images: state.uploadImage.selectedImages
 });
 
 export default connect(mapStateToProps)(Post);

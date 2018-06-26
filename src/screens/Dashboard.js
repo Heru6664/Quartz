@@ -155,8 +155,10 @@ export class Dashboard extends Component {
             </Button>
             <Button badge onPress={this.handleCart} vertical>
               {this.props.length.length === 0 ? null : (
-                <Badge style={{ color: "#ffffff" }} danger>
-                  <Text>{this.props.length.length}</Text>
+                <Badge danger>
+                  <Text style={{ color: "#ffffff" }}>
+                    {this.props.length.length}
+                  </Text>
                 </Badge>
               )}
 

@@ -64,7 +64,7 @@ const navigation = createStackNavigator(
   },
   {
     headerMode: "none",
-    initialRouteName: "Category"
+    initialRouteName: "Post"
   }
 );
 

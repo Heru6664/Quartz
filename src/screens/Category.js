@@ -29,87 +29,71 @@ import {
 import StarRating from "react-native-star-rating";
 
 const routes = [
-  {
-    icon: "car",
-    type: "FontAwesome",
-    name: "Car",
-    cat: "Dashboard",
-    active: false
-  },
+  { icon: "car", type: "FontAwesome", name: "Car", cat: "Dashboard" },
   {
     icon: "motorcycle",
     type: "FontAwesome",
     name: "Motorcycle",
-    cat: "Profile",
-    active: false
+    cat: "Profile"
   },
   {
     icon: "sofa",
     type: "MaterialCommunityIcons",
     name: "Property",
-    cat: "About",
-    active: false
+    cat: "About"
   },
   {
     icon: "ios-person-outline",
     type: "Ionicons",
     name: "Personal",
-    cat: "ContactUs",
-    active: false
+    cat: "ContactUs"
   },
   {
     icon: "laptop-mac",
     type: "MaterialCommunityIcons",
     name: "Electronic",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   },
   {
     icon: "ios-basketball-outline",
     type: "Ionicons",
     name: "Sport",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   },
   {
     icon: "ios-basket-outline",
     type: "Ionicons",
     name: "Household",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   },
   {
     icon: "child-care",
     type: "MaterialIcons",
     name: "Child",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   },
   {
     icon: "industry",
     type: "FontAwesome",
     name: "Industry",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   },
   {
     icon: "broom",
     type: "MaterialCommunityIcons",
     name: "Service",
-    cat: "Setting",
-    active: false
+    cat: "Setting"
   }
 ];
 
 export class Category extends Component {
   state = {
     like: false,
-    categories: "",
-    active: false
+    categories: ""
   };
 
   handlePress = route => {
-    this.setState({ categories: route, active: true }, () => {
+    this.setState({ categories: route }, () => {
       this.product();
     });
   };
@@ -150,7 +134,8 @@ export class Category extends Component {
     const data = this.props.product.filter(index => {
       return index.category === category;
     });
-    console.log(data);
+    console.log(data.length);
+
     return (
       <FlatList
         data={data}
