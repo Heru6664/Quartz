@@ -54,7 +54,7 @@ class Post extends Component {
       multiple: true
     }).then(image => {
       this.props.dispatch(uploadImage(image));
-      console.log(this.props.images);
+      return image;
     });
   };
 

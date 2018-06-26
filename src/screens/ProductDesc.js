@@ -20,13 +20,9 @@ import {
   Badge
   // Image
 } from "native-base";
-import { ListItem } from "react-native-elements";
-import { TouchableOpacity, FlatList, StyleSheet, Image } from "react-native";
+import { TouchableOpacity, StyleSheet, Image } from "react-native";
 import { connect } from "react-redux";
 import StarRating from "react-native-star-rating";
-
-import HeaderProfile from "../components/HeaderProfile";
-import CardProfile from "../components/CardProfile";
 
 import { addCart, addFav } from "../action/contentDashboard";
 

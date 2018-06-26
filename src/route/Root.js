@@ -25,6 +25,7 @@ import Help from "../screens/Help";
 import CreditCard from "../screens/CreditCard";
 import Feedback from "../screens/Feedback";
 import OrderSummary from "../screens/OrderSummary";
+import Category from "../screens/Category";
 
 import SideBar from "../components/SideBar";
 
@@ -36,33 +37,34 @@ import {
 
 const navigation = createStackNavigator(
   {
-    Dashboard: Dashboard,
-    Chat: Chat,
-    Cart: Cart,
-    Post: Post,
-    Contact: Contact,
-    NContact: NContact,
-    Profile: Profile,
-    Setting: Setting,
     About: About,
-    ProductDesc: ProductDesc,
-    Favorites: Favorites,
-    MyOrder: MyOrder,
-    MyReview: MyReview,
-    Wallet: Wallet,
-    CreditCard: CreditCard,
-    Language: Language,
-    MyAdress: MyAdress,
+    Cart: Cart,
+    Category: Category,
     CEmail: CEmail,
+    Chat: Chat,
+    Contact: Contact,
     CPassword: CPassword,
-    Security: Security,
+    CreditCard: CreditCard,
+    Dashboard: Dashboard,
+    Favorites: Favorites,
     Feedback: Feedback,
     Help: Help,
-    OrderSummary: OrderSummary
+    Language: Language,
+    MyOrder: MyOrder,
+    MyReview: MyReview,
+    NContact: NContact,
+    OrderSummary: OrderSummary,
+    Post: Post,
+    ProductDesc: ProductDesc,
+    Profile: Profile,
+    MyAdress: MyAdress,
+    Security: Security,
+    Setting: Setting,
+    Wallet: Wallet
   },
   {
     headerMode: "none",
-    initialRouteName: "Dashboard"
+    initialRouteName: "Category"
   }
 );
 

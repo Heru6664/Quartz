@@ -33,13 +33,7 @@ class CardProfile extends Component {
         route: "MyOrder",
         badge: 1
       },
-      {
-        type: "Ionicons",
-        icon: "heart",
-        name: "Favorites",
-        route: "Favorites",
-        badge: 1
-      },
+
       {
         type: "Entypo",
         icon: "wallet",

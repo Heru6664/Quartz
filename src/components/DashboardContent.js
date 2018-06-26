@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-import { Container, Content, Image, CardItem } from "native-base";
-import { Card, Button, Icon, ListItem, Text } from "react-native-elements";
-import { StyleSheet, FlatList, TouchableOpacity } from "react-native";
+import React from "react";
+import { CardItem, Icon } from "native-base";
+import { Card, Text } from "react-native-elements";
+import { StyleSheet, TouchableOpacity } from "react-native";
 
 export default ({ item, pressProduct }) => (
   <TouchableOpacity onPress={() => pressProduct(item)} style={styles.th}>
@@ -9,7 +9,6 @@ export default ({ item, pressProduct }) => (
       <CardItem style={styles.itemContainer}>
         <Text>$ {item.price}</Text>
       </CardItem>
-      <CardItem />
     </Card>
   </TouchableOpacity>
 );

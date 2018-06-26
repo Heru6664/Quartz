@@ -65,10 +65,12 @@
 		<string>rubicon-icon-font.ttf</string>
 		<string>SimpleLineIcons.ttf</string>
 		<string>Zocial.ttf</string>
+		<string>Feather.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
 	</array>
 	<key>NSPhotoLibraryUsageDescription</key>
-    <string>photo</string>
-    <key>NSCameraUsageDescription</key>
-    <string>camera</string>
+	<string>photo</string>
+	<key>NSCameraUsageDescription</key>
+	<string>camera</string>
 </dict>
 </plist>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, StyleSheet, FlatList } from "react-native";
+import { Text, StyleSheet, FlatList, TouchableOpacity } from "react-native";
 import {
   Container,
   Content,
@@ -8,7 +8,6 @@ import {
   Footer,
   FooterTab,
   Icon,
-  Title,
   Left,
   Body,
   Right,
@@ -17,11 +16,14 @@ import {
 } from "native-base";
 import Menu, { MenuItem, MenuDivider } from "react-native-material-menu";
 import { connect } from "react-redux";
-import { fetchContent, getDetail } from "../action/contentDashboard";
+import { fetchContent, getDetail, addFav } from "../action/contentDashboard";
 
 import DashboardContent from "../components/DashboardContent";
 
 export class Dashboard extends Component {
+  state = {
+    like: false
+  };
   static navigationOptions = {
     drawerLabel: "Dashboard",
     drawerIcon: () => {
@@ -41,12 +43,14 @@ export class Dashboard extends Component {
   showMenu = () => {
     this._menu.show();
   };
-
+  handleFav = () => {
+    this.props.navigation.navigate("Favorites");
+  };
   componentDidMount() {
     this.props.dispatch(fetchContent());
   }
-  handleChat = () => {
-    this.props.navigation.navigate("Chat");
+  handleCategory = () => {
+    this.props.navigation.navigate("Category");
   };
   handlePost = () => {
     this.props.navigation.navigate("Post");
@@ -57,22 +61,17 @@ export class Dashboard extends Component {
   handleProfile = () => {
     this.props.navigation.navigate("Profile");
   };
+
   pressProduct = item => {
     console.log(this.props.navigation);
     this.props.dispatch(getDetail(item));
     this.props.navigation.navigate("ProductDesc");
   };
+  likeProduct = item => {
+    this.setState({ like: !this.state.like });
+    this.props.dispatch(addFav(item));
+  };
 
-  renderProduct = item => (
-    <TouchableOpacity style={styles.th}>
-      <Card title={item.name} image={{ uri: item.img }}>
-        <CardItem style={styles.itemContainer}>
-          <Text>IDR {item.price}</Text>
-        </CardItem>
-        <CardItem />
-      </Card>
-    </TouchableOpacity>
-  );
   render() {
     return (
       <Container>
@@ -85,10 +84,22 @@ export class Dashboard extends Component {
               <Icon style={styles.iconHead} name="menu" />
             </Button>
           </Left>
-          <Body>
-            <Title>Quartz PE</Title>
-          </Body>
+          <Body />
           <Right>
+            <Button transparent badge onPress={this.handleFav} vertical>
+              {this.props.fav === 0 ? null : (
+                <Badge style={{ color: "#ffffff" }} danger>
+                  <Text>{this.props.fav}</Text>
+                </Badge>
+              )}
+
+              <Icon
+                style={{ padding: 10 }}
+                type="Ionicons"
+                name="heart"
+                badge
+              />
+            </Button>
             <Menu
               ref={this.setMenuRef}
               button={
@@ -119,7 +130,11 @@ export class Dashboard extends Component {
           <FlatList
             data={this.props.products}
             renderItem={({ item }) => (
-              <DashboardContent pressProduct={this.pressProduct} item={item} />
+              <DashboardContent
+                likeProduct={this.likeProduct}
+                pressProduct={this.pressProduct}
+                item={item}
+              />
             )}
             numColumns={2}
           />
@@ -130,9 +145,9 @@ export class Dashboard extends Component {
               <Icon name="home" />
               <Text style={styles.footerContent}>Home</Text>
             </Button>
-            <Button onPress={this.handleChat} vertical>
-              <Icon name="chatbubbles" />
-              <Text style={styles.footerContent}>Inbox</Text>
+            <Button onPress={this.handleCategory} vertical>
+              <Icon type="Ionicons" name="ios-list-box-outline" />
+              <Text style={styles.footerContent}>Category</Text>
             </Button>
             <Button onPress={this.handlePost} vertical>
               <Icon name="camera" />
@@ -178,6 +193,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   products: state.content.content,
   length: state.cart.cart,
+  fav: state.content.liked.length,
   loading: state.content.loading,
   error: state.content.error
 });
