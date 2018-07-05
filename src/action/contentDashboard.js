@@ -12,12 +12,14 @@ export const INC_TOTAL = "INC_TOTAL";
 export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
+export const LOGIN_CLEAR_ERROR = "LOGIN_CLEAR_ERROR";
 export const LIKED_ICON = "LIKED_ICON";
 export const REMV_FRM_FAV = "REMV_FRM_FAV";
 export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
 
-export const loginBegin = () => ({
-  type: LOGIN_BEGIN
+export const loginBegin = user => ({
+  type: LOGIN_BEGIN,
+  payload: { user }
 });
 
 export const loginSuccess = user => ({
@@ -30,15 +32,20 @@ export const loginFailed = error => ({
   payload: { error }
 });
 
-export const loginAuth = (username, password) => {
+export const clearError = () => ({
+  type: LOGIN_CLEAR_ERROR
+});
+
+export const loginAuth = (email, password) => {
   return dispatch => {
     dispatch(loginBegin());
     axios
       .post("https://us-central1-quartz-868c9.cloudfunctions.net/loginAuth", {
-        username: username,
+        email: email,
         password: password
       })
       .then(res => {
+        console.log(res.data);
         if (res.data.status === "success") {
           dispatch(loginSuccess(res.data));
         } else {

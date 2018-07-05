@@ -6,7 +6,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   TextInput,
-  Image
+  Image,
+  ActivityIndicator
 } from "react-native";
 import {
   Container,
@@ -26,6 +27,15 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
+import RNFetchBlob from "react-native-fetch-blob";
+import * as firebase from "firebase";
+
+const config = {
+  apiKey: "AIzaSyB-4hcPMMEkhw41pgYFu_GZb65Cbwz_Yd0",
+  databaseURL: "https://quartz-868c9.firebaseio.com",
+  storageBucket: "quartz-868c9.appspot.com"
+};
+firebase.initializeApp(config);
 
 import PickerPost from "../components/pickerPost";
 import { uploadImage } from "../action/contentDashboard";
@@ -34,8 +44,10 @@ class Post extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: "true",
-      selected: "0"
+      loading: false,
+      active: true,
+      selected: "0",
+      dp: null
     };
   }
 
@@ -45,26 +57,67 @@ class Post extends Component {
     });
   };
 
-  uploadImage = () => {
+  openImage = () => {
+    // const Blob = RNFetchBlob.polyfill.Blob;
+    // const fs = RNFetchBlob.fs;
+    // window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
+    // window.Blob = Blob;
+    // const uid = "123456";
     ImagePicker.openPicker({
-      width: 200,
+      width: 300,
       height: 300,
-      cropping: false,
-      multiple: true
-    }).then(image => {
-      this.props.dispatch(uploadImage(image));
-    });
+      cropping: true,
+      multiple: true,
+      mediaType: "photo",
+      loadingLabelText: "Uploading Image"
+    })
+      .then(image => {
+        console.log(image);
+        this.props.dispatch(uploadImage(image));
+        // const imagePath = image.path;
+        // const imageRef = firebase
+        //   .storage()
+        //   .ref(uid)
+        //   .child("dp.jpg");
+        // const mime = "image/jpg";
+        // fs.readFile(imagePath, "base64")
+        //   .then(data => {
+        //     return Blob.build(data, { type: `${mime};BASE64` });
+        //     console.log(data);
+        //   })
+        //   .then(blob => {
+        //     uploadBlob = blob;
+        //     return imageRef.put(blob, { contentType: mime });
+        //   })
+        //   .then(() => {
+        //     uploadBlob.close();
+        //     return imageRef.getDownloadURL();
+        //   })
+        //   .then(url => {
+        //     let userData = {};
+        //     let obj = {};
+        //     obj["dp"] = url;
+        //     this.setState(obj);
+        //   })
+        //   .catch(error => {
+        //     console.log(error);
+        //   });
+      })
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   cropImage = item => {
     ImagePicker.openCropper({
       path: item.sourceURL,
-      width: 300,
-      height: 400
+      width: 10,
+      height: 10
     }).then(image => {
-      image;
+      console.log(image);
     });
   };
+
   renderImage = item => {
     return (
       <TouchableOpacity
@@ -85,6 +138,18 @@ class Post extends Component {
   };
 
   render() {
+    // const dpr = this.state.dp ? (
+    //   <TouchableOpacity onPress={() => this.openImage()}>
+    //     <Image
+    //       style={{ width: 100, height: 100, margin: 5 }}
+    //       source={{ uri: this.state.dp }}
+    //     />
+    //   </TouchableOpacity>
+    // ) : (
+    //   <Button onPress={() => this.openImage()}>
+    //     <Text>Upload Image</Text>
+    //   </Button>
+    // );
     return (
       <Container>
         <Header>
@@ -96,6 +161,9 @@ class Post extends Component {
           </Left>
         </Header>
         <Content style={styles.content}>
+          {/* <Card>
+            <CardItem>{dpr}</CardItem>
+          </Card> */}
           <Card>
             <CardItem>
               <Text>Upload Photo</Text>
@@ -109,7 +177,7 @@ class Post extends Component {
                 />
 
                 <TouchableOpacity
-                  onPress={() => this.uploadImage()}
+                  onPress={() => this.openImage()}
                   style={styles.uploadContainer}
                 >
                   <Icon style={styles.uploadIcon} name="add" />

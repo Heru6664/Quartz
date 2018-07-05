@@ -17,7 +17,7 @@ class App extends Component {
     if (this.props.login) {
       return <Root />;
     } else {
-      return <Root />;
+      return <Auth />;
     }
   }
 }
