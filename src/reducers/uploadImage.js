@@ -9,7 +9,7 @@ export default (state = initialState, action) => {
     case UPLOAD_IMAGE:
       return {
         ...state,
-        selectedImages: [...state.selectedImages, ...action.payload.image]
+        selectedImages: [...state.selectedImages, action.payload.image]
       };
     default:
       return state;

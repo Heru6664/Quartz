@@ -67,7 +67,6 @@ class Post extends Component {
       width: 300,
       height: 300,
       cropping: true,
-      multiple: true,
       mediaType: "photo",
       loadingLabelText: "Uploading Image"
     })

@@ -8,8 +8,7 @@ import {
   Left,
   Right,
   Body,
-  Icon,
-  H1
+  Icon
 } from "native-base";
 import Animation from "lottie-react-native";
 import { connect } from "react-redux";
@@ -193,8 +192,8 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   animation: {
-    width: 40,
-    height: 40
+    width: 30,
+    height: 30
   },
   orContainer: {
     flexDirection: "row",
