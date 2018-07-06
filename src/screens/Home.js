@@ -107,13 +107,7 @@ class Home extends Component {
         >
           <Image
             source={require("../img/quartz-logo.png")}
-            style={{
-              width: "80%",
-              height: 150,
-              alignSelf: "stretch",
-              justifyContent: "center",
-              alignItems: "center"
-            }}
+            style={styles.imageLogo}
           />
         </Header>
         <Content style={styles.content}>
@@ -134,10 +128,7 @@ class Home extends Component {
                     ref={animation => {
                       this.animation = animation;
                     }}
-                    style={{
-                      width: 40,
-                      height: 40
-                    }}
+                    style={styles.animation}
                     loop
                     source={require("../assets/images/lottie/data.json")}
                   />
@@ -148,21 +139,10 @@ class Home extends Component {
               <Text style={styles.text}>SIGN IN</Text>
             )}
           </Button>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 20
-            }}
-          >
-            <View
-              style={{ borderColor: "#a48bf1", borderWidth: 0.5, flex: 0.3 }}
-            />
-            <Text style={{ textAlign: "center", padding: 10 }}>OR</Text>
-            <View
-              style={{ borderColor: "#a48bf1", borderWidth: 0.5, flex: 0.3 }}
-            />
+          <View style={styles.orContainer}>
+            <View style={styles.orLine} />
+            <Text style={styles.orText}>OR</Text>
+            <View style={styles.orLine} />
           </View>
 
           <Button rounded bordered style={styles.orButton}>
@@ -194,6 +174,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: "5%",
     backgroundColor: "white"
   },
+
   item: {
     marginVertical: "2%"
   },
@@ -203,6 +184,32 @@ const styles = StyleSheet.create({
     borderColor: "#34495e",
     justifyContent: "center",
     alignItems: "center"
+  },
+  imageLogo: {
+    width: "80%",
+    height: 150,
+    alignSelf: "stretch",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  animation: {
+    width: 40,
+    height: 40
+  },
+  orContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20
+  },
+  orLine: {
+    borderColor: "#a48bf1",
+    borderWidth: 0.5,
+    flex: 0.3
+  },
+  orText: {
+    textAlign: "center",
+    padding: 10
   },
   orButton: {
     width: "100%",
