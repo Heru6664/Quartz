@@ -2,7 +2,8 @@ import {
   LOGIN_BEGIN,
   LOGIN_SUCCESS,
   LOGIN_FAILED,
-  LOGIN_CLEAR_ERROR
+  LOGIN_CLEAR_ERROR,
+  LOGOUT
 } from "../action/contentDashboard";
 
 const initialState = {
@@ -40,6 +41,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         error: null
+      };
+    case LOGOUT:
+      return {
+        ...state,
+        isLogin: false
       };
     default:
       return state;

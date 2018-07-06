@@ -13,9 +13,11 @@ export const LOGIN_BEGIN = "LOGIN_BEGIN";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAILED = "LOGIN_FAILED";
 export const LOGIN_CLEAR_ERROR = "LOGIN_CLEAR_ERROR";
+export const LOGOUT = "LOGOUT";
 export const LIKED_ICON = "LIKED_ICON";
 export const REMV_FRM_FAV = "REMV_FRM_FAV";
 export const UPLOAD_IMAGE = "UPLOAD_IMAGE";
+
 
 export const loginBegin = user => ({
   type: LOGIN_BEGIN,
@@ -56,6 +58,10 @@ export const loginAuth = (email, password) => {
       .catch(e => console.log(e));
   };
 };
+
+export const logout = () => ({
+  type: LOGOUT
+})
 
 export const fecthContentBegin = () => ({
   type: FETCH_CONTENT_BEGIN
