@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
   TextInput,
   Image,
-  ActivityIndicator
+  Easing
 } from "react-native";
 import {
   Container,
@@ -27,15 +27,7 @@ import {
 } from "native-base";
 import { connect } from "react-redux";
 import ImagePicker from "react-native-image-crop-picker";
-import RNFetchBlob from "react-native-fetch-blob";
-import * as firebase from "firebase";
-
-const config = {
-  apiKey: "AIzaSyB-4hcPMMEkhw41pgYFu_GZb65Cbwz_Yd0",
-  databaseURL: "https://quartz-868c9.firebaseio.com",
-  storageBucket: "quartz-868c9.appspot.com"
-};
-firebase.initializeApp(config);
+import ZoomImage from "react-native-zoom-image";
 
 import PickerPost from "../components/pickerPost";
 import { uploadImage } from "../action/contentDashboard";
@@ -58,11 +50,6 @@ class Post extends Component {
   };
 
   openImage = () => {
-    // const Blob = RNFetchBlob.polyfill.Blob;
-    // const fs = RNFetchBlob.fs;
-    // window.XMLHttpRequest = RNFetchBlob.polyfill.XMLHttpRequest;
-    // window.Blob = Blob;
-    // const uid = "123456";
     ImagePicker.openPicker({
       width: 300,
       height: 300,
@@ -73,82 +60,41 @@ class Post extends Component {
       .then(image => {
         console.log(image);
         this.props.dispatch(uploadImage(image));
-        // const imagePath = image.path;
-        // const imageRef = firebase
-        //   .storage()
-        //   .ref(uid)
-        //   .child("dp.jpg");
-        // const mime = "image/jpg";
-        // fs.readFile(imagePath, "base64")
-        //   .then(data => {
-        //     return Blob.build(data, { type: `${mime};BASE64` });
-        //     console.log(data);
-        //   })
-        //   .then(blob => {
-        //     uploadBlob = blob;
-        //     return imageRef.put(blob, { contentType: mime });
-        //   })
-        //   .then(() => {
-        //     uploadBlob.close();
-        //     return imageRef.getDownloadURL();
-        //   })
-        //   .then(url => {
-        //     let userData = {};
-        //     let obj = {};
-        //     obj["dp"] = url;
-        //     this.setState(obj);
-        //   })
-        //   .catch(error => {
-        //     console.log(error);
-        //   });
       })
       .catch(error => {
         console.log(error);
       });
   };
 
-  cropImage = item => {
-    ImagePicker.openCropper({
-      path: item.sourceURL,
-      width: 10,
-      height: 10
-    }).then(image => {
-      console.log(image);
-    });
-  };
-
   renderImage = item => {
     return (
-      <TouchableOpacity
-        onPress={() => this.cropImage(item)}
-        style={styles.uploadContainer}
-      >
-        <Image
-          source={{
-            uri: item.path,
-            width: item.width,
-            height: item.height,
-            mime: item.mime
-          }}
-          style={styles.uploadedImage}
-        />
+      <TouchableOpacity>
+        <View style={styles.uploadContainer}>
+          <ZoomImage
+            source={{
+              uri: item.path
+            }}
+            imgStyle={{ width: 79, height: 79, borderRadius:5 }}
+            enableScaling={true}
+            easingFunc={Easing.bounce}
+          />
+        </View>
       </TouchableOpacity>
+      // onPress={() => this.cropImage(item)}
+      // style={styles.uploadContainer}
+      //   <Image
+      //     source={{
+      //       uri: item.path,
+      //       width: item.width,
+      //       height: item.height,
+      //       mime: item.mime
+      //     }}
+      //     style={styles.uploadedImage}
+      //   />
     );
   };
 
   render() {
-    // const dpr = this.state.dp ? (
-    //   <TouchableOpacity onPress={() => this.openImage()}>
-    //     <Image
-    //       style={{ width: 100, height: 100, margin: 5 }}
-    //       source={{ uri: this.state.dp }}
-    //     />
-    //   </TouchableOpacity>
-    // ) : (
-    //   <Button onPress={() => this.openImage()}>
-    //     <Text>Upload Image</Text>
-    //   </Button>
-    // );
     return (
       <Container>
         <Header>
@@ -160,9 +106,6 @@ class Post extends Component {
           </Left>
         </Header>
         <Content style={styles.content}>
-          {/* <Card>
-            <CardItem>{dpr}</CardItem>
-          </Card> */}
           <Card>
             <CardItem>
               <Text>Upload Photo</Text>
