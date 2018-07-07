@@ -150,8 +150,8 @@ class Home extends Component {
           </View>
 
           <Button rounded bordered style={styles.orButton}>
-            <Icon type="EvilIcons" name="sc-facebook" />
-            <Text>Sign in with Facebook</Text>
+            <Icon type="Feather" name="instagram" />
+            <Text>Sign in with Instagram</Text>
           </Button>
 
           <Button rounded bordered style={styles.orButton}>
