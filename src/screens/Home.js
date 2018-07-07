@@ -95,6 +95,11 @@ class Home extends Component {
 
     this.props.dispatch(loginAuth(this.state.email, this.state.password));
   };
+
+  signUpNow = () => {
+    this.props.navigation.navigate("SignUp");
+    console.log(this.props.navigation.navigate("SignUp"));
+  };
   render() {
     return (
       <Container>
@@ -155,7 +160,9 @@ class Home extends Component {
           </Button>
         </Content>
         <View style={styles.footerContainer}>
-          <Text style={styles.signUp}>SIGN UP</Text>
+          <Text onPress={this.signUpNow} style={styles.signUp}>
+            SIGN UP
+          </Text>
         </View>
       </Container>
     );
@@ -163,10 +170,6 @@ class Home extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    alignItems: "center",
-    backgroundColor: "#34495e"
-  },
   content: {
     flex: 1,
     paddingVertical: "8%",

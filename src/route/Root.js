@@ -1,4 +1,5 @@
 import React from "react";
+import { connect } from "react-redux";
 
 import About from "../screens/About";
 import Cart from "../screens/Cart";
@@ -78,7 +79,7 @@ const Root = createDrawerNavigator(
         props.navigation.navigate(route);
         props.navigation.dispatch(DrawerActions.closeDrawer());
       };
-
+      console.log(props);
       return <SideBar handlePress={navigate} {...props} />;
     }
   }

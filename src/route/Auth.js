@@ -1,6 +1,5 @@
 import Home from "../screens/Home";
-import Dashboard from "../screens/Dashboard";
-
+import SignUp from "../screens/SignUp";
 import SideBar from "../components/SideBar";
 
 import {
@@ -11,7 +10,8 @@ import {
 
 const Auth = createStackNavigator(
   {
-    Home: Home
+    Home: Home,
+    SignUp: SignUp
   },
   {
     headerMode: "none"
