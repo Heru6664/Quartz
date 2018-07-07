@@ -5,17 +5,20 @@
  */
 
 import React, { Component } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View } from "react-native";
 import Root from "./route/Root";
-import Home from "./screens/Home";
 import Auth from "./route/Auth";
 import { connect } from "react-redux";
 
 class App extends Component {
+  logoutFunc = () => {
+    this.props.logout();
+  };
+
   render() {
     console.log(this.props.login);
     if (this.props.login) {
-      return <Root />;
+      return <Root logoutFunc={this.logoutFunc} />;
     } else {
       return <Auth />;
     }
